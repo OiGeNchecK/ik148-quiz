@@ -3,6 +3,7 @@ let currentTab = "learn";
 let currentExercise = 0;
 let answers = {};
 let correctCount = 0;
+let showingResults = false;
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -34,6 +35,7 @@ function setupTabs() {
             currentTab = btn.dataset.tab;
             $$(".tab-content").forEach((s) => s.classList.remove("active"));
             $(`#${currentTab}`).classList.add("active");
+            showingResults = false;
             render();
         });
     });
@@ -48,6 +50,12 @@ function setupModal() {
 
 function setupNav() {
     $("#btn-prev").addEventListener("click", () => {
+        if (showingResults) {
+            showingResults = false;
+            currentExercise = EXERCISES.length - 1;
+            renderExercise();
+            return;
+        }
         if (currentExercise > 0) {
             currentExercise--;
             renderExercise();
@@ -57,6 +65,9 @@ function setupNav() {
         if (currentExercise < EXERCISES.length - 1) {
             currentExercise++;
             renderExercise();
+        } else {
+            showingResults = true;
+            renderResults();
         }
     });
 }
@@ -83,7 +94,11 @@ function render() {
     $("#tab-prepositions").textContent = s.tabPrepositions;
 
     renderLearn();
-    renderExercise();
+    if (showingResults) {
+        renderResults();
+    } else {
+        renderExercise();
+    }
     renderPrepositions();
 }
 
@@ -137,9 +152,12 @@ function renderExercise() {
     correctCount = Object.values(answers).filter((a) => a.isCorrect).length;
     $("#score").textContent = `${s.score}: ${correctCount} / ${EXERCISES.length}`;
     $("#progress-fill").style.width = `${(Object.keys(answers).length / EXERCISES.length) * 100}%`;
+
+    const isLast = currentExercise === EXERCISES.length - 1;
     $("#exercise-counter").textContent = `${currentExercise + 1} / ${EXERCISES.length}`;
     $("#btn-prev").disabled = currentExercise === 0;
-    $("#btn-next").disabled = currentExercise === EXERCISES.length - 1;
+    $("#btn-next").textContent = isLast ? "📊" : "→";
+    $("#btn-next").disabled = false;
 
     const parts = ex.sentence.split("___");
     let blankClass = "";
@@ -192,6 +210,87 @@ function handleAnswer(btn) {
     };
 
     renderExercise();
+}
+
+function renderResults() {
+    const s = UI_STRINGS[currentLang];
+    correctCount = Object.values(answers).filter((a) => a.isCorrect).length;
+    const total = EXERCISES.length;
+    const answered = Object.keys(answers).length;
+    const pct = Math.round((correctCount / total) * 100);
+
+    let verdict = s.resultsTryAgain;
+    if (pct >= 90) verdict = s.resultsExcellent;
+    else if (pct >= 60) verdict = s.resultsGood;
+
+    const rowsHtml = EXERCISES.map((ex, i) => {
+        const ans = answers[i];
+        const correctOpt = ex.options[ex.correct];
+        let statusIcon, rowClass, userAnswerHtml;
+
+        if (!ans) {
+            statusIcon = "⬜";
+            rowClass = "result-skipped";
+            userAnswerHtml = `<span class="result-skipped-label">${s.resultsSkipped}</span>`;
+        } else if (ans.isCorrect) {
+            statusIcon = "✅";
+            rowClass = "result-correct";
+            userAnswerHtml = `<span class="result-user-correct">${ans.selected}</span>`;
+        } else {
+            statusIcon = "❌";
+            rowClass = "result-wrong";
+            userAnswerHtml = `<span class="result-user-wrong">${ans.selected}</span>`;
+        }
+
+        const sentenceDisplay = ex.sentence.replace("___", `<b>${correctOpt}</b>`);
+
+        return `
+            <div class="result-row ${rowClass}">
+                <div class="result-row-header">
+                    <span class="result-num">${i + 1}</span>
+                    <span class="result-icon">${statusIcon}</span>
+                    <span class="result-sentence">${sentenceDisplay}</span>
+                </div>
+                ${!ans || !ans.isCorrect ? `
+                <div class="result-row-detail">
+                    ${ans ? `<span class="result-label">${s.resultsYourAnswer}</span> ${userAnswerHtml}` : userAnswerHtml}
+                    ${ans && !ans.isCorrect ? `<span class="result-label">${s.resultsCorrectAnswer}</span> <span class="result-correct-val">${correctOpt}</span>` : ""}
+                </div>` : ""}
+            </div>
+        `;
+    }).join("");
+
+    $("#score").textContent = `${s.score}: ${correctCount} / ${total}`;
+    $("#progress-fill").style.width = "100%";
+    $("#exercise-counter").textContent = `${answered} / ${total}`;
+    $("#btn-prev").disabled = false;
+    $("#btn-next").disabled = true;
+    $("#btn-next").textContent = "→";
+
+    $("#exercise-area").innerHTML = `
+        <div class="results-card">
+            <h2 class="results-title">${s.resultsTitle}</h2>
+            <div class="results-score-big">
+                <div class="results-circle">
+                    <span class="results-pct">${pct}%</span>
+                    <span class="results-fraction">${correctCount} ${s.resultsOf} ${total}</span>
+                </div>
+                <div class="results-verdict">${verdict}</div>
+            </div>
+            <div class="results-actions">
+                <button class="results-btn restart-btn" id="results-restart">${s.resultsRestartBtn}</button>
+            </div>
+            <div class="results-list">${rowsHtml}</div>
+        </div>
+    `;
+
+    $("#results-restart").addEventListener("click", () => {
+        answers = {};
+        correctCount = 0;
+        currentExercise = 0;
+        showingResults = false;
+        renderExercise();
+    });
 }
 
 function renderPrepositions() {
