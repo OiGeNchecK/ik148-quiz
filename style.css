@@ -1,0 +1,463 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #2d6a4f;
+    --primary-light: #40916c;
+    --primary-dark: #1b4332;
+    --accent: #d4a373;
+    --bg: #fefae0;
+    --card: #ffffff;
+    --text: #1b1b1b;
+    --text-light: #555;
+    --correct: #2d6a4f;
+    --wrong: #c1121f;
+    --border: #ddd;
+    --radius: 12px;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+#app {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+header h1 {
+    font-size: 1.6rem;
+    color: var(--primary-dark);
+}
+
+.lang-selector {
+    display: flex;
+    gap: 4px;
+}
+
+.lang-selector button {
+    padding: 6px 10px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.lang-selector button.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: #fff;
+}
+
+.tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.tabs button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-light);
+    transition: all 0.2s;
+}
+
+.tabs button.active {
+    background: var(--primary);
+    color: #fff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Learn tab */
+.grammar-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.grammar-card h2 {
+    color: var(--primary-dark);
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+}
+
+.grammar-card h3 {
+    color: var(--primary);
+    margin: 16px 0 8px;
+    font-size: 1rem;
+}
+
+.grammar-card p {
+    line-height: 1.7;
+    margin-bottom: 8px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    margin: 12px 0;
+}
+
+.grammar-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.grammar-table th {
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+}
+
+.grammar-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.grammar-table tr:nth-child(even) {
+    background: #f8f8f4;
+}
+
+.grammar-table .highlight {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.example {
+    background: #f0f7f4;
+    border-left: 4px solid var(--primary);
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+}
+
+.example .translation {
+    font-style: normal;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+/* Practice tab */
+.exercise-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+}
+
+.score {
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.exercise-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    min-height: 200px;
+}
+
+.exercise-card .question-label {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.exercise-card .sentence {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.exercise-card .sentence .blank {
+    display: inline-block;
+    min-width: 80px;
+    border-bottom: 3px solid var(--primary);
+    text-align: center;
+    font-weight: 700;
+    padding: 2px 8px;
+    color: var(--primary);
+}
+
+.exercise-card .sentence .blank.correct {
+    border-color: var(--correct);
+    color: var(--correct);
+    background: #e8f5e9;
+    border-radius: 4px;
+}
+
+.exercise-card .sentence .blank.wrong {
+    border-color: var(--wrong);
+    color: var(--wrong);
+    background: #ffebee;
+    border-radius: 4px;
+    text-decoration: line-through;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.options button {
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.options button:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: #f0f7f4;
+}
+
+.options button.selected-correct {
+    border-color: var(--correct);
+    background: #e8f5e9;
+    color: var(--correct);
+    font-weight: 700;
+}
+
+.options button.selected-wrong {
+    border-color: var(--wrong);
+    background: #ffebee;
+    color: var(--wrong);
+}
+
+.options button.show-correct {
+    border-color: var(--correct);
+    background: #e8f5e9;
+}
+
+.options button:disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+.explain-btn {
+    display: none;
+    margin-top: 16px;
+    padding: 10px 20px;
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    background: #fff8f0;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.95rem;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.explain-btn:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.explain-btn.visible {
+    display: block;
+}
+
+.exercise-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.btn-nav {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    background: var(--card);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn-nav:hover {
+    border-color: var(--primary);
+    background: #f0f7f4;
+}
+
+.btn-nav:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+#exercise-counter {
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+/* Prepositions tab */
+.prep-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.prep-card h3 {
+    color: var(--primary);
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+}
+
+.prep-card .prep-meaning {
+    color: var(--text-light);
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+.prep-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.modal-overlay.open {
+    display: flex;
+}
+
+.modal {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    border: none;
+    background: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.modal h3 {
+    color: var(--primary-dark);
+    margin-bottom: 16px;
+    padding-right: 30px;
+}
+
+.modal .explanation-text {
+    line-height: 1.8;
+}
+
+.modal .explanation-text p {
+    margin-bottom: 10px;
+}
+
+.modal .rule-highlight {
+    background: #f0f7f4;
+    border-left: 4px solid var(--primary);
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.modal .correct-answer {
+    font-weight: 700;
+    color: var(--correct);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    header h1 { font-size: 1.3rem; }
+    .options { grid-template-columns: 1fr; }
+    .lang-selector button { padding: 5px 8px; font-size: 0.8rem; }
+    .grammar-card { padding: 16px; }
+    .exercise-card { padding: 16px; }
+}
