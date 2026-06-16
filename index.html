@@ -1,57 +1,17 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genitiv Trainer — Deutsch lernen</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div id="app">
-        <header>
-            <h1>Genitiv Trainer</h1>
-            <div class="lang-selector">
-                <button data-lang="uk" class="active">🇺🇦 UA</button>
-                <button data-lang="de">🇩🇪 DE</button>
-                <button data-lang="en">🇬🇧 EN</button>
-                <button data-lang="tr">🇹🇷 TR</button>
-                <button data-lang="hi">🇮🇳 HI</button>
-            </div>
-        </header>
-
-        <nav class="tabs">
-            <button data-tab="learn" class="active" id="tab-learn"></button>
-            <button data-tab="practice" id="tab-practice"></button>
-            <button data-tab="prepositions" id="tab-prepositions"></button>
-        </nav>
-
-        <main>
-            <section id="learn" class="tab-content active"></section>
-            <section id="practice" class="tab-content">
-                <div class="exercise-header">
-                    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-                    <div class="score" id="score"></div>
-                </div>
-                <div id="exercise-area"></div>
-                <div class="exercise-nav">
-                    <button id="btn-prev" class="btn-nav">←</button>
-                    <span id="exercise-counter"></span>
-                    <button id="btn-next" class="btn-nav">→</button>
-                </div>
-            </section>
-            <section id="prepositions" class="tab-content"></section>
-        </main>
-
-        <div class="modal-overlay" id="explanation-modal">
-            <div class="modal">
-                <button class="modal-close" id="modal-close">✕</button>
-                <h3 id="modal-title"></h3>
-                <div id="modal-body"></div>
-            </div>
-        </div>
-    </div>
-
-    <script src="data.js"></script>
-    <script src="app.js"></script>
-</body>
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Інтерактивний тренажер граматики німецької мови рівня B1 — активне пригадування та інтервальне повторення." />
+    <title>Grammatik B1 · Тренажер німецької</title>
+    <style>
+      html, body, #root { margin: 0; padding: 0; min-height: 100%; }
+      body { background: #13151a; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
