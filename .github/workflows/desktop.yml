@@ -11,7 +11,12 @@ name: Desktop builds
 
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+    # a version bump in package.json (or editing this file) triggers a build;
+    # the release is keyed to v<version>
+    paths:
+      - "package.json"
+      - ".github/workflows/desktop.yml"
   workflow_dispatch:
 
 permissions:
