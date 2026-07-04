@@ -1,7 +1,7 @@
 {
   "name": "german-b1-grammar",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Deutsch A0–B1 — тренажер німецької граматики та письма",
   "author": "OiGeNchecK",
   "type": "module",

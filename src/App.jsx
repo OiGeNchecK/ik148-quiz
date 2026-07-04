@@ -4,6 +4,7 @@ import { MODULES, LEVELS } from "./data";
 import { GLOSSARY } from "./glossary";
 import { WritingHome, WritingPromptView } from "./Writing";
 import PlanView from "./Plan";
+import { LANGS, LangContext, makeT, useT, useLang, moduleSub, levelSub, levelBlurb } from "./i18n";
 
 /* ============================================================
    German Grammar Trainer (A0 → A1 → A2 → B1)
@@ -118,13 +119,15 @@ export default function App() {
   const [dark, setDark] = useState(() => loadSaved().dark ?? true);
   const [streak, setStreak] = useState(() => loadSaved().streak || 0);
   const [showUk, setShowUk] = useState(() => loadSaved().showUk ?? true);
+  const [lang, setLang] = useState(() => loadSaved().lang || "uk");
   const [level, setLevel] = useState("A0");
   const fileRef = useRef(null);
+  const t = makeT(lang);
 
   // auto-save so progress survives reloads/closed tabs — the whole point of a 2-week study plan
   useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ srs, streak, dark, showUk })); } catch {}
-  }, [srs, streak, dark, showUk]);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ srs, streak, dark, showUk, lang })); } catch {}
+  }, [srs, streak, dark, showUk, lang]);
 
   const cards = useMemo(() => allCards(), []);
   const now = Date.now();
@@ -189,6 +192,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
+    <LangContext.Provider value={lang}>
     <div style={{ minHeight: "100vh", background: theme.bg, color: theme.text, fontFamily: "'Segoe UI', system-ui, sans-serif", transition: "background .3s" }}>
       <style>{`
         * { box-sizing: border-box; }
@@ -204,9 +208,13 @@ export default function App() {
         </button>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           {dueCards.length > 0 && (
-            <span style={{ fontSize: 12, color: theme.dim }}>{dueCards.length} до повтору</span>
+            <span style={{ fontSize: 12, color: theme.dim }}>{t("due", { n: dueCards.length })}</span>
           )}
-          <button className="focusable" title="Українські переклади" onClick={() => setShowUk((v) => !v)} style={{ background: theme.panel2, border: `1px solid ${theme.line}`, color: theme.text, borderRadius: 8, padding: "6px 10px", fontSize: 13 }}>{showUk ? "🇺🇦" : "🇩🇪"}</button>
+          <select className="focusable" value={lang} onChange={(e) => setLang(e.target.value)} aria-label="Language"
+            style={{ background: theme.panel2, border: `1px solid ${theme.line}`, color: theme.text, borderRadius: 8, padding: "6px 6px", fontSize: 13, fontFamily: "inherit", cursor: "pointer" }}>
+            {LANGS.map((l) => <option key={l.id} value={l.id}>{l.flag} {l.name}</option>)}
+          </select>
+          <button className="focusable" title={t("explToggle")} onClick={() => setShowUk((v) => !v)} style={{ background: theme.panel2, border: `1px solid ${theme.line}`, color: theme.text, borderRadius: 8, padding: "6px 10px", fontSize: 13 }}>{showUk ? "💬" : "🇩🇪"}</button>
           <button className="focusable" onClick={() => setDark((v) => !v)} style={{ background: theme.panel2, border: `1px solid ${theme.line}`, color: theme.text, borderRadius: 8, padding: "6px 10px", fontSize: 13 }}>{dark ? "☀️" : "🌙"}</button>
         </div>
       </header>
@@ -268,12 +276,14 @@ export default function App() {
 
       <input ref={fileRef} type="file" accept="application/json" onChange={importProgress} style={{ display: "none" }} />
     </div>
+    </LangContext.Provider>
     </MotionConfig>
   );
 }
 
 // ---------- Level tabs ----------
 function LevelTabs({ theme, level, setLevel, levelStats }) {
+  const t = useT();
   return (
     <div style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
       {LEVELS.map((l) => {
@@ -288,7 +298,7 @@ function LevelTabs({ theme, level, setLevel, levelStats }) {
               fontWeight: 700,
             }}>
             <div style={{ fontSize: 15 }}>{l.title}</div>
-            <div style={{ fontSize: 10.5, fontWeight: 600, opacity: active ? 0.8 : 0.7 }}>{s.pct}% · {s.count} мод.</div>
+            <div style={{ fontSize: 10.5, fontWeight: 600, opacity: active ? 0.8 : 0.7 }}>{s.pct}% · {s.count} {t("modAbbr")}</div>
           </button>
         );
       })}
@@ -298,6 +308,8 @@ function LevelTabs({ theme, level, setLevel, levelStats }) {
 
 // ---------- Home ----------
 function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, dueCount, streak, onStartSession, onDiagnostic, onContinue, onModule, onWriting, onPlan, onExport, onImport }) {
+  const t = useT();
+  const lang = useLang();
   const totalMastered = Object.values(moduleStats).reduce((a, s) => a + s.mastered, 0);
   const totalQ = Object.values(moduleStats).reduce((a, s) => a + s.total, 0);
   const overall = Math.round((totalMastered / totalQ) * 100);
@@ -306,14 +318,14 @@ function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, due
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-      <div style={{ marginBottom: 8, fontSize: 13, color: theme.dim }}>Граматика + письмо · активне пригадування + інтервальне повторення</div>
+      <div style={{ marginBottom: 8, fontSize: 13, color: theme.dim }}>{t("tagline")}</div>
       <h1 style={{ fontSize: 30, fontWeight: 800, margin: "0 0 18px", letterSpacing: "-0.03em" }}>
-        Німецька з нуля до <span style={{ color: theme.accent }}>B1</span>
+        {t("h1pre")} <span style={{ color: theme.accent }}>B1</span>
       </h1>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
-        <Stat theme={theme} big={overall + "%"} label="Загальне опанування A0→B1" />
-        <Stat theme={theme} big={streak + " 🔥"} label="Серія днів ≥70%" />
+        <Stat theme={theme} big={overall + "%"} label={t("statMastery")} />
+        <Stat theme={theme} big={streak + " 🔥"} label={t("statStreak")} />
       </div>
 
       {/* overall A0→B1 bar */}
@@ -337,19 +349,19 @@ function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, due
           style={{ width: "100%", textAlign: "left", background: theme.panel, border: `1px solid ${nextModule.color}`, borderRadius: 12, padding: "14px 16px", marginBottom: 12, color: theme.text, display: "flex", alignItems: "center", gap: 14 }}>
           <span style={{ width: 8, height: 40, borderRadius: 4, background: nextModule.color, flexShrink: 0 }} />
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>▶ Продовжити навчання · {nextModule.level}</div>
+            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>▶ {t("continueKicker")} · {nextModule.level}</div>
             <div style={{ fontWeight: 700, fontSize: 16 }}>{nextModule.title}</div>
-            <div style={{ fontSize: 12.5, color: theme.dim }}>{nextModule.titleUk}</div>
+            <div style={{ fontSize: 12.5, color: theme.dim }}>{moduleSub(lang, nextModule)}</div>
           </div>
         </motion.button>
       )}
 
       <div style={{ display: "flex", gap: 10, marginBottom: 12, flexWrap: "wrap" }}>
         <button className="focusable" onClick={onStartSession} style={{ flex: "1 1 220px", background: theme.accent, color: "#1a1206", border: "none", borderRadius: 12, padding: "16px 18px", fontSize: 16, fontWeight: 700 }}>
-          ▶ Сесія на сьогодні{dueCount ? ` · ${dueCount}` : ""}
+          ▶ {t("sessionBtn")}{dueCount ? ` · ${dueCount}` : ""}
         </button>
         <button className="focusable" onClick={onDiagnostic} style={{ flex: "1 1 220px", background: theme.panel, color: theme.text, border: `1px solid ${theme.line}`, borderRadius: 12, padding: "16px 18px", fontSize: 16, fontWeight: 600 }}>
-          🎯 Діагностичний тест
+          {t("diagBtn")}
         </button>
       </div>
 
@@ -358,32 +370,32 @@ function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, due
           style={{ flex: "1 1 260px", textAlign: "left", background: theme.panel, border: `1px solid #b88bc4`, borderRadius: 12, padding: "14px 16px", color: theme.text, display: "flex", alignItems: "center", gap: 14 }}>
           <span style={{ width: 8, height: 40, borderRadius: 4, background: "#b88bc4", flexShrink: 0 }} />
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>✍️ Головний фокус</div>
-            <div style={{ fontWeight: 700, fontSize: 16 }}>Schreiben — письмо</div>
-            <div style={{ fontSize: 12.5, color: theme.dim }}>Фрази · Lückentext · переклад · листи</div>
+            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>{t("focusKicker")}</div>
+            <div style={{ fontWeight: 700, fontSize: 16 }}>{t("writingTitle")}</div>
+            <div style={{ fontSize: 12.5, color: theme.dim }}>{t("writingSub")}</div>
           </div>
         </motion.button>
         <motion.button className="focusable" onClick={onPlan} whileHover={{ y: -2 }}
           style={{ flex: "1 1 260px", textAlign: "left", background: theme.panel, border: `1px solid #5fa0b3`, borderRadius: 12, padding: "14px 16px", color: theme.text, display: "flex", alignItems: "center", gap: 14 }}>
           <span style={{ width: 8, height: 40, borderRadius: 4, background: "#5fa0b3", flexShrink: 0 }} />
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>📅 До іспиту</div>
-            <div style={{ fontWeight: 700, fontSize: 16 }}>План на 14 днів</div>
-            <div style={{ fontSize: 12.5, color: theme.dim }}>Що вчити щодня — граматика + письмо</div>
+            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>{t("planKicker")}</div>
+            <div style={{ fontWeight: 700, fontSize: 16 }}>{t("planTitle")}</div>
+            <div style={{ fontSize: 12.5, color: theme.dim }}>{t("planSub")}</div>
           </div>
         </motion.button>
       </div>
 
       <div style={{ display: "flex", gap: 8, marginBottom: 22 }}>
-        <button className="focusable" onClick={onExport} style={{ fontSize: 12, color: theme.dim, background: "none", border: `1px solid ${theme.line}`, borderRadius: 8, padding: "6px 10px" }}>⬇ Зберегти прогрес</button>
-        <button className="focusable" onClick={onImport} style={{ fontSize: 12, color: theme.dim, background: "none", border: `1px solid ${theme.line}`, borderRadius: 8, padding: "6px 10px" }}>⬆ Завантажити прогрес</button>
+        <button className="focusable" onClick={onExport} style={{ fontSize: 12, color: theme.dim, background: "none", border: `1px solid ${theme.line}`, borderRadius: 8, padding: "6px 10px" }}>{t("saveBtn")}</button>
+        <button className="focusable" onClick={onImport} style={{ fontSize: 12, color: theme.dim, background: "none", border: `1px solid ${theme.line}`, borderRadius: 8, padding: "6px 10px" }}>{t("loadBtn")}</button>
       </div>
 
-      <h2 style={{ fontSize: 14, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, margin: "0 0 12px" }}>Оберіть рівень</h2>
+      <h2 style={{ fontSize: 14, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, margin: "0 0 12px" }}>{t("chooseLevel")}</h2>
       <LevelTabs theme={theme} level={level} setLevel={setLevel} levelStats={levelStats} />
 
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", margin: "4px 0 12px" }}>
-        <div style={{ fontSize: 13.5, color: theme.dim, lineHeight: 1.5, maxWidth: 560 }}>{levelInfo?.blurb}</div>
+        <div style={{ fontSize: 13.5, color: theme.dim, lineHeight: 1.5, maxWidth: 560 }}>{levelInfo && levelBlurb(lang, levelInfo)}</div>
         <div style={{ fontSize: 13, fontWeight: 700, color: theme.accent, whiteSpace: "nowrap", marginLeft: 12 }}>{levelStats[level].pct}%</div>
       </div>
 
@@ -400,9 +412,9 @@ function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, due
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontWeight: 700, fontSize: 15, display: "flex", alignItems: "center", gap: 8 }}>
                   {m.title}
-                  {isNext && <span style={{ fontSize: 10, fontWeight: 800, color: "#1a1206", background: m.color, borderRadius: 6, padding: "2px 6px", letterSpacing: "0.03em" }}>НАСТУПНИЙ</span>}
+                  {isNext && <span style={{ fontSize: 10, fontWeight: 800, color: "#1a1206", background: m.color, borderRadius: 6, padding: "2px 6px", letterSpacing: "0.03em" }}>{t("nextBadge")}</span>}
                 </div>
-                <div style={{ fontSize: 12.5, color: theme.dim }}>{m.titleUk}</div>
+                <div style={{ fontSize: 12.5, color: theme.dim }}>{moduleSub(lang, m)}</div>
               </div>
               <div style={{ width: 90, flexShrink: 0 }}>
                 <div style={{ height: 6, borderRadius: 4, background: theme.panel2, overflow: "hidden" }}>
@@ -429,29 +441,31 @@ function Stat({ theme, big, label }) {
 
 // ---------- Diagnostic start (choose level / full test) ----------
 function DiagStart({ theme, levelStats, onBack, onStart }) {
+  const t = useT();
+  const lang = useLang();
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 14, padding: 0 }}>← Назад</button>
-      <h1 style={{ fontSize: 26, fontWeight: 800, margin: "0 0 6px", letterSpacing: "-0.02em" }}>🎯 Діагностичний тест</h1>
+      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 14, padding: 0 }}>{t("back")}</button>
+      <h1 style={{ fontSize: 26, fontWeight: 800, margin: "0 0 6px", letterSpacing: "-0.02em" }}>{t("diagTitle")}</h1>
       <p style={{ color: theme.dim, fontSize: 14.5, lineHeight: 1.55, margin: "0 0 20px", maxWidth: 560 }}>
-        Повний тест A0–B1 визначить, з якого рівня варто почати. Або оберіть конкретний рівень — тест охопить його й вищі.
+        {t("diagIntro")}
       </p>
 
       <button className="focusable" onClick={() => onStart("A0")}
         style={{ width: "100%", textAlign: "left", background: theme.accent, color: "#1a1206", border: "none", borderRadius: 12, padding: "16px 18px", marginBottom: 14, fontWeight: 700 }}>
-        <div style={{ fontSize: 16 }}>🧭 Повний тест A0 → B1</div>
-        <div style={{ fontSize: 12.5, opacity: 0.8 }}>По одному завданню з кожного модуля (включно з письмом) — знайдемо ваш рівень</div>
+        <div style={{ fontSize: 16 }}>{t("fullTest")}</div>
+        <div style={{ fontSize: 12.5, opacity: 0.8 }}>{t("fullTestSub")}</div>
       </button>
 
-      <h2 style={{ fontSize: 13, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, margin: "0 0 10px" }}>Або почати з рівня</h2>
+      <h2 style={{ fontSize: 13, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, margin: "0 0 10px" }}>{t("orLevel")}</h2>
       <div style={{ display: "grid", gap: 10 }}>
         {LEVELS.map((l) => (
           <button key={l.id} className="focusable" onClick={() => onStart(l.id)}
             style={{ textAlign: "left", background: theme.panel, border: `1px solid ${theme.line}`, borderRadius: 12, padding: "13px 16px", color: theme.text, display: "flex", alignItems: "center", gap: 14 }}>
             <span style={{ fontSize: 18, fontWeight: 800, color: theme.accent, minWidth: 34 }}>{l.id}</span>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 700, fontSize: 14.5 }}>{l.titleUk}</div>
-              <div style={{ fontSize: 12.5, color: theme.dim }}>{l.blurb}</div>
+              <div style={{ fontWeight: 700, fontSize: 14.5 }}>{levelSub(lang, l)}</div>
+              <div style={{ fontSize: 12.5, color: theme.dim }}>{levelBlurb(lang, l)}</div>
             </div>
             <span style={{ fontSize: 12, color: theme.dim }}>{levelStats[l.id].pct}%</span>
           </button>
@@ -463,15 +477,17 @@ function DiagStart({ theme, levelStats, onBack, onStart }) {
 
 // ---------- Module (rules + start practice) ----------
 function ModuleView({ theme, module: m, stats, onBack, onPractice, showUk }) {
+  const t = useT();
+  const lang = useLang();
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 14, padding: 0 }}>← Назад</button>
+      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 14, padding: 0 }}>{t("back")}</button>
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 4 }}>
         <span style={{ width: 10, height: 30, borderRadius: 4, background: m.color }} />
         <span style={{ fontSize: 11, fontWeight: 800, color: "#1a1206", background: m.color, borderRadius: 6, padding: "2px 7px" }}>{m.level}</span>
         <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: "-0.02em" }}>{m.title}</h1>
       </div>
-      <div style={{ color: theme.dim, marginBottom: 20, marginLeft: 22 }}>{m.titleUk} · {stats.pct}% опановано</div>
+      <div style={{ color: theme.dim, marginBottom: 20, marginLeft: 22 }}>{moduleSub(lang, m)} · {t("masteredLine", { pct: stats.pct })}</div>
 
       <div style={{ display: "grid", gap: 10, marginBottom: 22 }}>
         {m.rules.map((r, i) => (
@@ -483,7 +499,7 @@ function ModuleView({ theme, module: m, stats, onBack, onPractice, showUk }) {
       </div>
 
       <button className="focusable" onClick={onPractice} style={{ width: "100%", background: m.color, color: "#1a1206", border: "none", borderRadius: 12, padding: "16px", fontSize: 16, fontWeight: 700 }}>
-        ▶ Тренувати ({m.questions.length} завдань)
+        {t("practiceBtn", { n: m.questions.length })}
       </button>
     </motion.div>
   );
@@ -508,6 +524,7 @@ function Session({ theme, mode, moduleId, diagLevel, cards, dueCards, srs, onAns
     return shuffle(dueCards).slice(0, 15);
   });
 
+  const t = useT();
   const [idx, setIdx] = useState(0);
   const [results, setResults] = useState([]);
   const total = queue.length;
@@ -516,8 +533,8 @@ function Session({ theme, mode, moduleId, diagLevel, cards, dueCards, srs, onAns
   if (!card) {
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <p style={{ color: theme.dim }}>Немає карток до повтору зараз — усе опановано на сьогодні. 🎉</p>
-        <button className="focusable" onClick={onQuit} style={{ background: theme.accent, border: "none", borderRadius: 10, padding: "12px 18px", fontWeight: 700, color: "#1a1206" }}>На головну</button>
+        <p style={{ color: theme.dim }}>{t("noCards")}</p>
+        <button className="focusable" onClick={onQuit} style={{ background: theme.accent, border: "none", borderRadius: 10, padding: "12px 18px", fontWeight: 700, color: "#1a1206" }}>{t("toHome")}</button>
       </motion.div>
     );
   }
@@ -546,12 +563,12 @@ function Session({ theme, mode, moduleId, diagLevel, cards, dueCards, srs, onAns
     } else setIdx((i) => i + 1);
   }
 
-  const modeLabel = mode === "diagnostic" ? "🎯 Діагностика" : mode === "module" ? "Тренування модуля" : "Повторення";
+  const modeLabel = mode === "diagnostic" ? t("modeDiag") : mode === "module" ? t("modeModule") : t("modeDue");
 
   return (
     <motion.div key={idx} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-        <button className="focusable" onClick={onQuit} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, padding: 0 }}>✕ Вийти</button>
+        <button className="focusable" onClick={onQuit} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, padding: 0 }}>{t("exit")}</button>
         <span style={{ fontSize: 13, color: theme.dim }}>{modeLabel} · {idx + 1} / {total}</span>
       </div>
       <div style={{ height: 6, borderRadius: 4, background: theme.panel2, marginBottom: 22, overflow: "hidden" }}>
@@ -565,13 +582,14 @@ function Session({ theme, mode, moduleId, diagLevel, cards, dueCards, srs, onAns
 
 // ---------- Rule accordion (peek the rule mid-exercise) ----------
 function RulePeek({ theme, module: m, showUk }) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   if (!m) return null;
   return (
     <div style={{ marginBottom: 16 }}>
       <button className="focusable" onClick={() => setOpen((v) => !v)}
         style={{ background: theme.panel2, border: `1px solid ${theme.line}`, color: theme.text, borderRadius: 10, padding: "8px 12px", fontSize: 13, fontWeight: 600, display: "flex", alignItems: "center", gap: 8 }}>
-        📖 Правило <span style={{ color: theme.dim, fontWeight: 400 }}>{open ? "▲ сховати" : "▼ підглянути"}</span>
+        {t("rule")} <span style={{ color: theme.dim, fontWeight: 400 }}>{open ? t("hideRule") : t("peek")}</span>
       </button>
       <AnimatePresence>
         {open && (
@@ -594,6 +612,7 @@ function RulePeek({ theme, module: m, showUk }) {
 
 // ---------- "Why?" deep explanation ----------
 function WhyPanel({ theme, card, module: m }) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const deep = card.deepExpl;
   const deepItems = Array.isArray(deep) ? deep : deep ? [deep] : null;
@@ -602,7 +621,7 @@ function WhyPanel({ theme, card, module: m }) {
     <div style={{ marginTop: 12 }}>
       <button className="focusable" onClick={() => setOpen((v) => !v)}
         style={{ background: "none", border: `1px solid ${theme.line}`, color: theme.text, borderRadius: 10, padding: "9px 13px", fontSize: 14, fontWeight: 600, width: "100%" }}>
-        🤔 {open ? "Сховати пояснення" : "Чому саме так?"}
+        {open ? t("whyClose") : t("whyOpen")}
       </button>
       <AnimatePresence>
         {open && (
@@ -616,14 +635,14 @@ function WhyPanel({ theme, card, module: m }) {
                 </ul>
               ) : (
                 <div style={{ color: theme.dim, marginBottom: 8 }}>
-                  Докладного розбору для цього завдання немає — ось правила модуля «{m?.title}»:
+                  {t("noDeep", { m: m?.title || "" })}
                 </div>
               )}
 
               {/* option-by-option breakdown for MC */}
               {card.type === "mc" && card.optionExpl && (
                 <div style={{ marginTop: 10, display: "grid", gap: 6 }}>
-                  <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.06em", color: theme.dim, fontWeight: 700 }}>Розбір варіантів</div>
+                  <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.06em", color: theme.dim, fontWeight: 700 }}>{t("optBreakdown")}</div>
                   {card.options.map((o, i) => {
                     const right = i === card.answer;
                     return (
@@ -654,6 +673,7 @@ function WhyPanel({ theme, card, module: m }) {
 
 // ---------- Card (3 exercise types) ----------
 function Card({ theme, card, onResult, onNext, showUk }) {
+  const t = useT();
   const [phase, setPhase] = useState("answer"); // answer | feedback
   const [correct, setCorrect] = useState(false);
   const m = moduleById(card.mod);
@@ -713,7 +733,7 @@ function Card({ theme, card, onResult, onNext, showUk }) {
         <span style={{ background: modColor, color: "#1a1206", borderRadius: 5, padding: "1px 6px", marginRight: 8 }}>{m?.level}</span>
         {m?.title}
         <span style={{ color: theme.dim, marginLeft: 8, fontWeight: 500 }}>
-          {card.type === "fill" ? "впишіть" : card.type === "mc" ? "оберіть" : "складіть"}
+          {card.type === "fill" ? t("typeFill") : card.type === "mc" ? t("typeMc") : t("typeOrder")}
         </span>
       </div>
 
@@ -725,7 +745,7 @@ function Card({ theme, card, onResult, onNext, showUk }) {
         <div>
           <p style={{ fontSize: 20, lineHeight: 1.5, fontWeight: 600, margin: "0 0 16px" }}>{card.q}</p>
           <input ref={inputRef} className="focusable" value={text} disabled={phase === "feedback"}
-            onChange={(e) => setText(e.target.value)} placeholder={card.blankHint || "Ваша відповідь"}
+            onChange={(e) => setText(e.target.value)} placeholder={card.blankHint || t("yourAnswer")}
             style={{ width: "100%", fontSize: 18, padding: "13px 15px", borderRadius: 10, border: `2px solid ${phase === "feedback" ? fb : theme.line}`, background: theme.panel, color: theme.text, outline: "none" }} />
         </div>
       )}
@@ -758,7 +778,7 @@ function Card({ theme, card, onResult, onNext, showUk }) {
         <div>
           <p style={{ fontSize: 17, lineHeight: 1.5, fontWeight: 600, margin: "0 0 14px", color: theme.dim }}>{card.prompt}</p>
           <div style={{ minHeight: 54, border: `2px dashed ${phase === "feedback" ? fb : theme.line}`, borderRadius: 10, padding: 10, display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 12, background: theme.panel }}>
-            {built.length === 0 && <span style={{ color: theme.dim, fontSize: 14, alignSelf: "center" }}>Натискайте слова за порядком →</span>}
+            {built.length === 0 && <span style={{ color: theme.dim, fontSize: 14, alignSelf: "center" }}>{t("orderTap")}</span>}
             {built.map((w, i) => (
               <button key={i} className="focusable" disabled={phase === "feedback"}
                 onClick={() => { setBuilt((b) => b.filter((_, j) => j !== i)); setPool((p) => [...p, w]); }}
@@ -775,7 +795,7 @@ function Card({ theme, card, onResult, onNext, showUk }) {
           {phase === "answer" && (
             <button className="focusable" onClick={submitOrder} disabled={pool.length > 0}
               style={{ marginTop: 16, width: "100%", background: pool.length ? theme.panel2 : modColor, color: pool.length ? theme.dim : "#1a1206", border: "none", borderRadius: 10, padding: "13px", fontSize: 16, fontWeight: 700 }}>
-              Перевірити
+              {t("check")}
             </button>
           )}
         </div>
@@ -785,7 +805,7 @@ function Card({ theme, card, onResult, onNext, showUk }) {
       {card.type === "fill" && phase === "answer" && (
         <button className="focusable" onClick={submitFill} disabled={!text.trim()}
           style={{ marginTop: 16, width: "100%", background: text.trim() ? modColor : theme.panel2, color: text.trim() ? "#1a1206" : theme.dim, border: "none", borderRadius: 10, padding: "13px", fontSize: 16, fontWeight: 700 }}>
-          Перевірити <span style={{ opacity: 0.6, fontSize: 13 }}>↵</span>
+          {t("check")} <span style={{ opacity: 0.6, fontSize: 13 }}>↵</span>
         </button>
       )}
 
@@ -795,11 +815,11 @@ function Card({ theme, card, onResult, onNext, showUk }) {
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0 }}
             style={{ marginTop: 16, background: theme.panel, border: `1px solid ${fb}`, borderRadius: 12, padding: "14px 16px", overflow: "visible" }}>
             <div style={{ fontWeight: 800, color: fb, marginBottom: 6, fontSize: 15 }}>
-              {correct ? "✓ Правильно!" : "✕ Не точно"}
+              {correct ? t("fbOk") : t("fbNo")}
             </div>
             {!correct && (
               <div style={{ fontSize: 15, marginBottom: 8 }}>
-                Правильно: <b style={{ color: theme.text }}>{card.type === "order" ? card.answer.join(" ") : card.type === "mc" ? card.options[card.answer] : card.answer}</b>
+                {t("correctIs")} <b style={{ color: theme.text }}>{card.type === "order" ? card.answer.join(" ") : card.type === "mc" ? card.options[card.answer] : card.answer}</b>
               </div>
             )}
             {showUk && card.expl && <div style={{ fontSize: 14, color: theme.dim, lineHeight: 1.55 }}>{renderGloss(card.expl, theme)}</div>}
@@ -809,7 +829,7 @@ function Card({ theme, card, onResult, onNext, showUk }) {
 
             <button className="focusable" onClick={onNext}
               style={{ marginTop: 14, width: "100%", background: theme.accent, color: "#1a1206", border: "none", borderRadius: 10, padding: "12px", fontSize: 15, fontWeight: 700 }}>
-              Далі <span style={{ opacity: 0.6, fontSize: 13 }}>↵</span>
+              {t("nextBtn")} <span style={{ opacity: 0.6, fontSize: 13 }}>↵</span>
             </button>
           </motion.div>
         )}
@@ -820,17 +840,16 @@ function Card({ theme, card, onResult, onNext, showUk }) {
 
 // ---------- Summary ----------
 function Summary({ theme, acc, streak, mode, rec, byLevel, onAgain, onGoLevel, onHome }) {
+  const t = useT();
   const good = acc >= 70;
   const isDiag = mode === "diagnostic";
   const recInfo = rec ? LEVELS.find((l) => l.id === rec) : null;
 
   let msg;
   if (isDiag) {
-    msg = rec
-      ? `Найкраще почати з рівня ${rec} — там ще є над чим попрацювати.`
-      : "Чудово! Ти впевнено тримаєш усі рівні — рухайся до B1 і далі.";
+    msg = rec ? t("diagRec", { lvl: rec }) : t("diagTop");
   } else {
-    msg = acc >= 90 ? "Чудовий результат! Тримай темп." : acc >= 70 ? "Добре! Повтори завтра — закріпиться." : "Нормальний старт. Слабкі картки повернуться раніше.";
+    msg = acc >= 90 ? t("sumGreat") : acc >= 70 ? t("sumGood") : t("sumOk");
   }
 
   return (
@@ -839,8 +858,8 @@ function Summary({ theme, acc, streak, mode, rec, byLevel, onAgain, onGoLevel, o
       <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", delay: 0.1 }}
         style={{ fontSize: 64, marginBottom: 10 }}>{good ? "🎉" : "💪"}</motion.div>
       <div style={{ fontSize: 48, fontWeight: 800, color: good ? "#4caf7d" : theme.accent }}>{acc}%</div>
-      <div style={{ color: theme.dim, fontSize: 16, margin: "8px 0 4px" }}>точність</div>
-      {good && !isDiag && <div style={{ fontSize: 14, color: theme.accent }}>Серія: {streak} 🔥</div>}
+      <div style={{ color: theme.dim, fontSize: 16, margin: "8px 0 4px" }}>{t("accuracy")}</div>
+      {good && !isDiag && <div style={{ fontSize: 14, color: theme.accent }}>{t("streakLbl", { n: streak })}</div>}
       <p style={{ color: theme.text, fontSize: 16, maxWidth: 420, margin: "18px auto 18px", lineHeight: 1.5 }}>{msg}</p>
 
       {/* per-level breakdown for the diagnostic */}
@@ -865,11 +884,11 @@ function Summary({ theme, acc, streak, mode, rec, byLevel, onAgain, onGoLevel, o
       <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
         {isDiag && recInfo && (
           <button className="focusable" onClick={() => onGoLevel(rec)} style={{ background: theme.accent, color: "#1a1206", border: "none", borderRadius: 10, padding: "13px 22px", fontWeight: 700, fontSize: 15 }}>
-            Почати з {rec} →
+            {t("startWith", { lvl: rec })}
           </button>
         )}
-        <button className="focusable" onClick={onAgain} style={{ background: isDiag && recInfo ? theme.panel : theme.accent, color: isDiag && recInfo ? theme.text : "#1a1206", border: isDiag && recInfo ? `1px solid ${theme.line}` : "none", borderRadius: 10, padding: "13px 22px", fontWeight: 700, fontSize: 15 }}>Ще раз</button>
-        <button className="focusable" onClick={onHome} style={{ background: theme.panel, color: theme.text, border: `1px solid ${theme.line}`, borderRadius: 10, padding: "13px 22px", fontWeight: 600, fontSize: 15 }}>На головну</button>
+        <button className="focusable" onClick={onAgain} style={{ background: isDiag && recInfo ? theme.panel : theme.accent, color: isDiag && recInfo ? theme.text : "#1a1206", border: isDiag && recInfo ? `1px solid ${theme.line}` : "none", borderRadius: 10, padding: "13px 22px", fontWeight: 700, fontSize: 15 }}>{t("again")}</button>
+        <button className="focusable" onClick={onHome} style={{ background: theme.panel, color: theme.text, border: `1px solid ${theme.line}`, borderRadius: 10, padding: "13px 22px", fontWeight: 600, fontSize: 15 }}>{t("toHome")}</button>
       </div>
     </motion.div>
   );
