@@ -3,6 +3,7 @@ import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import { MODULES, LEVELS } from "./data";
 import { GLOSSARY } from "./glossary";
 import { WritingHome, WritingPromptView } from "./Writing";
+import PlanView from "./Plan";
 
 /* ============================================================
    German Grammar Trainer (A0 → A1 → A2 → B1)
@@ -199,7 +200,7 @@ export default function App() {
       <header style={{ position: "sticky", top: 0, zIndex: 10, background: theme.bg + "ee", backdropFilter: "blur(8px)", borderBottom: `1px solid ${theme.line}`, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
         <button className="focusable" onClick={() => setView({ name: "home" })} style={{ background: "none", border: "none", color: theme.text, display: "flex", alignItems: "center", gap: 10, padding: 0 }}>
           <span style={{ fontSize: 22 }}>🇩🇪</span>
-          <span style={{ fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>Grammatik A0–B1</span>
+          <span style={{ fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>Deutsch A0–B1</span>
         </button>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           {dueCards.length > 0 && (
@@ -221,7 +222,13 @@ export default function App() {
               onContinue={() => nextModule && setView({ name: "module", id: nextModule.id })}
               onModule={(id) => setView({ name: "module", id })}
               onWriting={() => setView({ name: "writing" })}
+              onPlan={() => setView({ name: "plan" })}
               onExport={exportProgress} onImport={() => fileRef.current?.click()} />
+          )}
+          {view.name === "plan" && (
+            <PlanView key="plan" theme={theme}
+              onBack={() => setView({ name: "home" })}
+              onModule={(id) => setView({ name: "module", id })} />
           )}
           {view.name === "writing" && (
             <WritingHome key="writing" theme={theme}
@@ -290,7 +297,7 @@ function LevelTabs({ theme, level, setLevel, levelStats }) {
 }
 
 // ---------- Home ----------
-function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, dueCount, streak, onStartSession, onDiagnostic, onContinue, onModule, onWriting, onExport, onImport }) {
+function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, dueCount, streak, onStartSession, onDiagnostic, onContinue, onModule, onWriting, onPlan, onExport, onImport }) {
   const totalMastered = Object.values(moduleStats).reduce((a, s) => a + s.mastered, 0);
   const totalQ = Object.values(moduleStats).reduce((a, s) => a + s.total, 0);
   const overall = Math.round((totalMastered / totalQ) * 100);
@@ -299,9 +306,9 @@ function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, due
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-      <div style={{ marginBottom: 8, fontSize: 13, color: theme.dim }}>Активне пригадування + інтервальне повторення</div>
+      <div style={{ marginBottom: 8, fontSize: 13, color: theme.dim }}>Граматика + письмо · активне пригадування + інтервальне повторення</div>
       <h1 style={{ fontSize: 30, fontWeight: 800, margin: "0 0 18px", letterSpacing: "-0.03em" }}>
-        Граматика з нуля до <span style={{ color: theme.accent }}>B1</span>
+        Німецька з нуля до <span style={{ color: theme.accent }}>B1</span>
       </h1>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
@@ -312,8 +319,8 @@ function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, due
       {/* overall A0→B1 bar */}
       <div style={{ marginBottom: 16 }}>
         <div style={{ display: "flex", height: 10, borderRadius: 6, overflow: "hidden", background: theme.panel2, border: `1px solid ${theme.line}` }}>
-          {LEVELS.map((l) => (
-            <div key={l.id} title={`${l.id}: ${levelStats[l.id].pct}%`} style={{ flex: 1, position: "relative", borderRight: l.id !== "B1" ? `1px solid ${theme.bg}` : "none" }}>
+          {LEVELS.map((l, li) => (
+            <div key={l.id} title={`${l.id}: ${levelStats[l.id].pct}%`} style={{ flex: 1, position: "relative", borderRight: li !== LEVELS.length - 1 ? `1px solid ${theme.bg}` : "none" }}>
               <div style={{ position: "absolute", inset: 0, opacity: 0.18, background: theme.accent }} />
               <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${levelStats[l.id].pct}%`, background: theme.accent, transition: "width .4s" }} />
             </div>
@@ -346,15 +353,26 @@ function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, due
         </button>
       </div>
 
-      <motion.button className="focusable" onClick={onWriting} whileHover={{ y: -2 }}
-        style={{ width: "100%", textAlign: "left", background: theme.panel, border: `1px solid #b88bc4`, borderRadius: 12, padding: "14px 16px", marginBottom: 22, color: theme.text, display: "flex", alignItems: "center", gap: 14 }}>
-        <span style={{ width: 8, height: 40, borderRadius: 4, background: "#b88bc4", flexShrink: 0 }} />
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>✍️ Підготовка до іспиту</div>
-          <div style={{ fontWeight: 700, fontSize: 16 }}>Schreiben — тренування письма</div>
-          <div style={{ fontSize: 12.5, color: theme.dim }}>Структура листа, готові фрази та 8 завдань у форматі B1</div>
-        </div>
-      </motion.button>
+      <div style={{ display: "flex", gap: 10, marginBottom: 12, flexWrap: "wrap" }}>
+        <motion.button className="focusable" onClick={onWriting} whileHover={{ y: -2 }}
+          style={{ flex: "1 1 260px", textAlign: "left", background: theme.panel, border: `1px solid #b88bc4`, borderRadius: 12, padding: "14px 16px", color: theme.text, display: "flex", alignItems: "center", gap: 14 }}>
+          <span style={{ width: 8, height: 40, borderRadius: 4, background: "#b88bc4", flexShrink: 0 }} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>✍️ Головний фокус</div>
+            <div style={{ fontWeight: 700, fontSize: 16 }}>Schreiben — письмо</div>
+            <div style={{ fontSize: 12.5, color: theme.dim }}>Фрази · Lückentext · переклад · листи</div>
+          </div>
+        </motion.button>
+        <motion.button className="focusable" onClick={onPlan} whileHover={{ y: -2 }}
+          style={{ flex: "1 1 260px", textAlign: "left", background: theme.panel, border: `1px solid #5fa0b3`, borderRadius: 12, padding: "14px 16px", color: theme.text, display: "flex", alignItems: "center", gap: 14 }}>
+          <span style={{ width: 8, height: 40, borderRadius: 4, background: "#5fa0b3", flexShrink: 0 }} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>📅 До іспиту</div>
+            <div style={{ fontWeight: 700, fontSize: 16 }}>План на 14 днів</div>
+            <div style={{ fontSize: 12.5, color: theme.dim }}>Що вчити щодня — граматика + письмо</div>
+          </div>
+        </motion.button>
+      </div>
 
       <div style={{ display: "flex", gap: 8, marginBottom: 22 }}>
         <button className="focusable" onClick={onExport} style={{ fontSize: 12, color: theme.dim, background: "none", border: `1px solid ${theme.line}`, borderRadius: 8, padding: "6px 10px" }}>⬇ Зберегти прогрес</button>
@@ -422,7 +440,7 @@ function DiagStart({ theme, levelStats, onBack, onStart }) {
       <button className="focusable" onClick={() => onStart("A0")}
         style={{ width: "100%", textAlign: "left", background: theme.accent, color: "#1a1206", border: "none", borderRadius: 12, padding: "16px 18px", marginBottom: 14, fontWeight: 700 }}>
         <div style={{ fontSize: 16 }}>🧭 Повний тест A0 → B1</div>
-        <div style={{ fontSize: 12.5, opacity: 0.8 }}>По одному завданню з кожного модуля — знайдемо ваш рівень</div>
+        <div style={{ fontSize: 12.5, opacity: 0.8 }}>По одному завданню з кожного модуля (включно з письмом) — знайдемо ваш рівень</div>
       </button>
 
       <h2 style={{ fontSize: 13, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, margin: "0 0 10px" }}>Або почати з рівня</h2>

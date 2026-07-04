@@ -15,6 +15,7 @@ export const LEVELS = [
   { id: "A1", title: "A1", titleUk: "Початок", blurb: "Відмінок Akkusativ, модальні, заперечення, порядок слів, Perfekt." },
   { id: "A2", title: "A2", titleUk: "Базовий+", blurb: "Dativ, прийменники, Präteritum, підрядні, порівняння." },
   { id: "B1", title: "B1", titleUk: "Середній", blurb: "Konjunktiv II, Passiv, Relativsätze, Genitiv, складні структури." },
+  { id: "SCH", title: "✍️", titleUk: "Письмо", blurb: "Структура листа, готові фрази та типові речення — все для письмової частини іспиту." },
 ];
 
 export const MODULES = [
@@ -811,6 +812,95 @@ export const MODULES = [
       { type:"order", prompt:"Складіть речення:", words:["Ich","werde","dich","morgen","anrufen"], answer:["Ich","werde","dich","morgen","anrufen"], expl:"werde на позиції 2, anrufen у кінці." },
       { type:"order", prompt:"Припущення:", words:["Sie","wird","jetzt","wohl","zu","Hause","sein"], answer:["Sie","wird","jetzt","wohl","zu","Hause","sein"], expl:"wird…wohl…sein." },
       { type:"fill", q:"Es ___ bald regnen.", blankHint:"es-форма", answer:"wird", expl:"es wird + Infinitiv." },
+    ],
+  },
+
+  /* =======================================================================
+     SCH — письмо (Schreiben): фрази й структури листа як SRS-картки.
+     Ці модулі потрапляють у щоденну сесію повторення разом із граматикою.
+     ======================================================================= */
+  {
+    id: "w_brief", title: "Briefaufbau & Anrede", titleUk: "Структура листа і звертання", color: "#b88bc4", level: "SCH",
+    rules: [
+      { de: "Частини листа: Anrede → Einleitung → Hauptteil → Schluss → Grußformel.", expl: "Звертання → вступ (чому пишу) → основна частина → підсумок → прощання. Ця схема — на кожному іспиті." },
+      { de: "Неформально: Liebe Anna, / Lieber Tom, … Liebe Grüße", expl: "Liebe — до жінки, Lieber — до чоловіка. Прощання: Liebe Grüße / Viele Grüße." },
+      { de: "Формально: Sehr geehrte Frau …, / Sehr geehrter Herr …, … Mit freundlichen Grüßen", expl: "Якщо не знаєш адресата: Sehr geehrte Damen und Herren," },
+      { de: "Після Anrede — кома, наступний рядок з малої літери.", expl: "«Liebe Lena,» → далі «vielen Dank…» з малої. Але Sie/Ihnen/Ihre — завжди з великої." },
+    ],
+    questions: [
+      { type:"fill", q:"___ geehrte Damen und Herren,", blankHint:"формальний початок", answer:"Sehr", expl:"Sehr geehrte Damen und Herren, — коли не знаєш, хто читатиме." },
+      { type:"mc", q:"Звертання до подруги Anna (неформально):", options:["Sehr geehrte Anna,","Liebe Anna,","Lieber Anna,","Liebes Anna,"], answer:1, expl:"До жінки — Liebe; Lieber — до чоловіка." },
+      { type:"fill", q:"Mit freundlichen ___", blankHint:"формальне прощання", answer:"Grüßen", expl:"Mit freundlichen Grüßen — стандарт формального листа." },
+      { type:"mc", q:"Після «Liebe Lena,» наступний рядок починається:", options:["завжди з великої літери","з малої (якщо не Sie і не іменник)","тільки з дієслова","з нового W-слова"], answer:1, expl:"Після коми в Anrede речення продовжується — тому мала літера: «Liebe Lena, vielen Dank …»." },
+      { type:"fill", q:"___ Tom, danke für deine Nachricht! (звертання до друга)", blankHint:"до чоловіка", answer:"Lieber", expl:"Lieber + чоловіче ім'я; Liebe + жіноче." },
+      { type:"mc", q:"Формальне прощання:", options:["Tschüss","Bis bald","Mit freundlichen Grüßen","Liebe Grüße"], answer:2, expl:"У формальному листі — тільки Mit freundlichen Grüßen." },
+      { type:"mc", q:"Не знаєш, хто читатиме листа:", options:["Hallo zusammen,","Liebe Leute,","Sehr geehrte Damen und Herren,","Sehr geehrter Herr,"], answer:2, expl:"Стандартна формула, коли адресат невідомий." },
+      { type:"order", prompt:"Вступ скарги:", words:["Ich","schreibe","Ihnen",",","weil","meine","Waschmaschine","kaputt","ist"], answer:["Ich","schreibe","Ihnen",",","weil","meine","Waschmaschine","kaputt","ist"], expl:"Класичний вступ: Ich schreibe Ihnen, weil … (дієслово в кінці підрядного)." },
+      { type:"fill", q:"Ich freue mich auf ___ Antwort. (ввічливо, Ви)", blankHint:"з великої!", answer:"Ihre", expl:"Ihre/Ihnen/Sie у листі — завжди з великої літери." },
+      { type:"mc", q:"Правильний порядок частин листа:", options:["Hauptteil → Anrede → Schluss","Anrede → Einleitung → Hauptteil → Schluss → Gruß","Anrede → Schluss → Hauptteil → Gruß","Einleitung → Anrede → Hauptteil → Gruß"], answer:1, expl:"Звертання → вступ → основна частина → підсумок → прощання." },
+    ],
+  },
+  {
+    id: "w_redemittel", title: "Redemittel: Schlüsselphrasen", titleUk: "Ключові фрази листа", color: "#c48bb8", level: "SCH",
+    rules: [
+      { de: "Фрази-формули вчимо цілком, як слова.", expl: "Vielen Dank für …, Es tut mir leid, dass …, Ich freue mich auf … — вони вже готові, їх не треба «будувати» щоразу." },
+      { de: "Подяка: Vielen Dank für + Akkusativ.", expl: "für deine Einladung, für Ihre Antwort, für das Geschenk." },
+      { de: "Прохання — через Konjunktiv II: Könntest du …? / Könnten Sie …?", expl: "Так звучить ввічливо. «Kannst du» — прямолінійніше." },
+      { de: "Відмова: Leider kann ich nicht …, weil …", expl: "Leider на 1-й позиції → дієслово одразу після нього (інверсія)." },
+    ],
+    questions: [
+      { type:"fill", q:"Vielen ___ für deine Einladung!", blankHint:"подяка", answer:"Dank", expl:"Vielen Dank für + Akk — головна фраза подяки." },
+      { type:"fill", q:"Ich schreibe dir, ___ ich dich um Rat bitten möchte.", blankHint:"тому що", answer:"weil", expl:"Ich schreibe dir/Ihnen, weil … — універсальний вступ." },
+      { type:"fill", q:"Es tut mir ___, dass ich nicht kommen kann.", blankHint:"шкода", answer:"leid", expl:"Es tut mir leid, dass … — вибачення." },
+      { type:"fill", q:"Ich freue mich ___ deine Antwort.", blankHint:"прийменник", answer:"auf", expl:"sich freuen auf + Akk — чекати з нетерпінням (майбутнє)." },
+      { type:"mc", q:"Ввічливе прохання:", options:["Du musst mir helfen!","Hilf mir!","Könntest du mir bitte helfen?","Ich will Hilfe."], answer:2, expl:"Konjunktiv II (könntest) + bitte = ввічливість." },
+      { type:"fill", q:"Wie ___ es, wenn wir uns am Samstag treffen?", blankHint:"K-II від sein", answer:"wäre", expl:"Wie wäre es, wenn …? — м'яка пропозиція." },
+      { type:"fill", q:"___ kann ich nicht kommen, weil ich krank bin. (на жаль)", blankHint:"одне слово", answer:"Leider", expl:"Leider + інверсія: Leider kann ich …" },
+      { type:"mc", q:"«Заздалегідь дякую»:", options:["Vielen Dank im Voraus.","Danke vorher.","Danke am Anfang.","Vielen Dank früher."], answer:0, expl:"im Voraus = заздалегідь. Гарне завершення прохання." },
+      { type:"order", prompt:"Формальне прохання:", words:["Ich","würde","mich","freuen",",","wenn","Sie","mir","helfen","könnten"], answer:["Ich","würde","mich","freuen",",","wenn","Sie","mir","helfen","könnten"], expl:"Ich würde mich freuen, wenn … könnten — найввічливіша формула." },
+      { type:"fill", q:"Ich möchte mich herzlich ___ das Geschenk bedanken.", blankHint:"прийменник", answer:"für", expl:"sich bedanken für + Akk." },
+    ],
+  },
+  {
+    id: "w_konnekt", title: "Konnektoren im Brief", titleUk: "Зв'язний текст листа", color: "#a88bd4", level: "SCH",
+    rules: [
+      { de: "weil / da / obwohl → дієслово в кінець підрядного.", expl: "…, weil ich krank bin. Obwohl es regnet, …" },
+      { de: "deshalb / deswegen / darum / trotzdem → одразу дієслово (інверсія).", expl: "Ich bin krank, deshalb bleibe ich zu Hause." },
+      { de: "außerdem — додає аргумент; zum Beispiel — наводить приклад.", expl: "Без сполучників текст «розсипається» — екзаменатори це помічають одразу." },
+      { de: "einerseits … andererseits …; meiner Meinung nach — для висловлення думки.", expl: "Обов'язкові для завдання «висловити свою думку» (форум)." },
+    ],
+    questions: [
+      { type:"fill", q:"Ich habe kein Auto, ___ fahre ich mit dem Bus.", blankHint:"тому", answer:"deshalb", alts:["deswegen","darum","daher"], expl:"deshalb/deswegen/darum + одразу дієслово." },
+      { type:"order", prompt:"З trotzdem:", words:["Es","regnet",",","trotzdem","gehe","ich","spazieren"], answer:["Es","regnet",",","trotzdem","gehe","ich","spazieren"], expl:"Після trotzdem — інверсія: gehe ich." },
+      { type:"fill", q:"Ich lerne Deutsch, ___ ich in Deutschland arbeiten möchte.", blankHint:"причина", answer:"weil", alts:["da"], expl:"weil → möchte в кінці." },
+      { type:"mc", q:"«Крім того» —", options:["außerdem","trotzdem","deshalb","obwohl"], answer:0, expl:"außerdem додає другий аргумент — must-have у листі." },
+      { type:"fill", q:"___ ich müde war, habe ich den Brief geschrieben. (хоча)", blankHint:"допуст", answer:"Obwohl", alts:["obwohl"], expl:"Obwohl … war, — дієслово в кінці підрядного." },
+      { type:"mc", q:"Einerseits ist das Handy praktisch, ___ lenkt es ab.", options:["andererseits","einerseits","außerdem","trotzdem"], answer:0, expl:"Пара: einerseits … andererseits (з одного боку … з іншого)." },
+      { type:"fill", q:"Meiner ___ nach sollten Handys in der Schule verboten werden.", blankHint:"думка", answer:"Meinung", expl:"Meiner Meinung nach + одразу дієслово." },
+      { type:"mc", q:"Після deshalb:", options:["дієслово в кінці","одразу дієслово (інверсія)","підмет, потім дієслово","кома і weil"], answer:1, expl:"deshalb — прислівник на 1-й позиції → дієслово на 2-й." },
+      { type:"order", prompt:"Причина + наслідок:", words:["Ich","bin","krank",",","deshalb","kann","ich","nicht","kommen"], answer:["Ich","bin","krank",",","deshalb","kann","ich","nicht","kommen"], expl:"deshalb kann ich — інверсія після deshalb." },
+      { type:"fill", q:"Ich esse gern Pizza. ___ mag ich Pasta. (крім того)", blankHint:"з великої", answer:"Außerdem", alts:["außerdem"], expl:"Außerdem + дієслово одразу." },
+    ],
+  },
+  {
+    id: "w_saetze", title: "Typische Briefsätze", titleUk: "Типові речення листа", color: "#d48ba8", level: "SCH",
+    rules: [
+      { de: "Пиши короткими реченнями: підмет + дієслово (2-га позиція) + решта.", expl: "Короткі правильні речення дають більше балів, ніж довгі з помилками." },
+      { de: "Leider / Deshalb / Morgen на 1-й позиції → інверсія.", expl: "Leider kann ich nicht kommen." },
+      { de: "Прохання: Könnten Sie …? + Infinitiv у кінці.", expl: "Könnten Sie mir bitte die Adresse schicken?" },
+      { de: "Складне речення = головне + кома + weil/dass/wenn + дієслово в кінці.", expl: "Ich schlage vor, dass wir uns am Sonntag treffen." },
+    ],
+    questions: [
+      { type:"order", prompt:"Подяка:", words:["Vielen","Dank","für","deine","E-Mail"], answer:["Vielen","Dank","für","deine","E-Mail"], expl:"Готова формула подяки." },
+      { type:"order", prompt:"Вступ листа:", words:["Ich","hoffe",",","es","geht","dir","gut"], answer:["Ich","hoffe",",","es","geht","dir","gut"], expl:"Ich hoffe, es geht dir gut — стандартний теплий вступ." },
+      { type:"order", prompt:"Відмова:", words:["Leider","kann","ich","am","Samstag","nicht","kommen"], answer:["Leider","kann","ich","am","Samstag","nicht","kommen"], expl:"Leider (1) + kann (2, інверсія) + … + kommen (кінець)." },
+      { type:"order", prompt:"Ввічливе питання:", words:["Wäre","es","möglich",",","den","Termin","zu","verschieben"], answer:["Wäre","es","möglich",",","den","Termin","zu","verschieben"], expl:"Wäre es möglich, … zu + Infinitiv?" },
+      { type:"order", prompt:"Пропозиція:", words:["Ich","schlage","vor",",","dass","wir","uns","am","Sonntag","treffen"], answer:["Ich","schlage","vor",",","dass","wir","uns","am","Sonntag","treffen"], expl:"vorschlagen (розділюване) + dass → treffen у кінці." },
+      { type:"order", prompt:"Формальне прохання:", words:["Könnten","Sie","mir","bitte","die","Adresse","schicken"], answer:["Könnten","Sie","mir","bitte","die","Adresse","schicken"], expl:"Könnten Sie …? + Infinitiv (schicken) у кінці." },
+      { type:"fill", q:"Ich wende mich ___ Sie, weil ich eine Frage habe.", blankHint:"прийменник", answer:"an", expl:"sich wenden an + Akk — формальне «звертаюсь до Вас»." },
+      { type:"fill", q:"Der Grund für meine E-Mail ___, dass meine Waschmaschine kaputt ist.", blankHint:"sein, 3 ос.", answer:"ist", expl:"Der Grund … ist, dass … — офіційне пояснення причини." },
+      { type:"fill", q:"Bitte teilen Sie mir mit, ___ der Kurs beginnt. (коли)", blankHint:"W-слово", answer:"wann", expl:"Непряме питання: mitteilen + wann → beginnt у кінці." },
+      { type:"order", prompt:"Завершення листа:", words:["Ich","freue","mich",",","bald","von","dir","zu","hören"], answer:["Ich","freue","mich",",","bald","von","dir","zu","hören"], expl:"Ich freue mich, … zu hören — гарне завершення неформального листа." },
     ],
   },
 ];

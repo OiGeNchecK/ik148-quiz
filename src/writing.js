@@ -294,3 +294,126 @@ Mit freundlichen Grüßen,
 J. Kowalenko`,
   },
 ];
+
+/* ============================================================
+   Lückentext — листи з пропусками ключових фраз.
+   Крок 2 у навчанні письма: фрази вже в контексті, але їх
+   треба АКТИВНО пригадати й вписати.
+   Маркер {n} у тексті = пропуск №n.
+   ============================================================ */
+export const CLOZE_LETTERS = [
+  {
+    id: "cl_absage", title: "Absage: Geburtstagsparty", titleUk: "Відмова від запрошення", register: "informell",
+    text: `Liebe Lena,
+
+vielen {1} für deine Einladung zu deiner Geburtstagsparty am Samstag! Ich habe mich sehr gefreut.
+
+Leider {2} ich nicht kommen, {3} ich an diesem Wochenende zu meiner Familie fahren muss. Es tut mir wirklich {4}.
+
+Wie {5} es, wenn wir uns nächste Woche treffen? Ich lade dich zum Essen ein.
+
+Liebe {6},
+Anna`,
+    gaps: [
+      { answer: "Dank", hint: "подяка" },
+      { answer: "kann", hint: "могти" },
+      { answer: "weil", alts: ["da"], hint: "тому що" },
+      { answer: "leid", hint: "es tut mir …" },
+      { answer: "wäre", hint: "K-II від sein" },
+      { answer: "Grüße", hint: "прощання" },
+    ],
+  },
+  {
+    id: "cl_beschwerde", title: "Beschwerde: Heizung", titleUk: "Скарга орендодавцю", register: "formell",
+    text: `Sehr {1} Frau Meier,
+
+ich schreibe Ihnen, {2} seit drei Tagen die Heizung in meiner Wohnung nicht funktioniert. In der Wohnung ist es sehr kalt.
+
+Ich bitte Sie {3}, so schnell wie möglich einen Techniker zu schicken. Wäre es {4}, dass die Reparatur bis Freitag erledigt wird?
+
+Ich freue mich auf Ihre {5}.
+
+Mit freundlichen {6},
+J. Kowalenko`,
+    gaps: [
+      { answer: "geehrte", hint: "формальне звертання" },
+      { answer: "weil", alts: ["da"], hint: "тому що" },
+      { answer: "deshalb", alts: ["deswegen", "darum", "daher"], hint: "тому" },
+      { answer: "möglich", hint: "можливо" },
+      { answer: "Antwort", hint: "відповідь" },
+      { answer: "Grüßen", hint: "прощання" },
+    ],
+  },
+  {
+    id: "cl_krank", title: "Krankmeldung", titleUk: "Повідомлення про хворобу", register: "formell",
+    text: `Sehr geehrter Herr Braun,
+
+ich möchte Ihnen {1}, dass ich seit heute krank bin. {2} kann ich morgen leider nicht zur Arbeit kommen.
+
+Ich war schon beim Arzt und soll zwei Tage zu Hause bleiben. Meine Aufgaben habe ich an Frau Schulz weitergegeben.
+
+Ich melde mich, {3} es mir besser geht. Vielen Dank für Ihr {4}.
+
+Mit freundlichen {5},
+J. Kowalenko`,
+    gaps: [
+      { answer: "mitteilen", hint: "повідомити" },
+      { answer: "Deshalb", alts: ["Deswegen", "Darum", "Daher"], hint: "тому (з великої)" },
+      { answer: "sobald", alts: ["wenn"], hint: "щойно" },
+      { answer: "Verständnis", hint: "розуміння" },
+      { answer: "Grüßen", hint: "прощання" },
+    ],
+  },
+  {
+    id: "cl_einladung", title: "Einladung: Party", titleUk: "Запрошення на вечірку", register: "informell",
+    text: `Hallo Anna,
+
+ich hoffe, es {1} dir gut! Ich habe am Samstag Geburtstag und möchte dich herzlich zu meiner Party {2}.
+
+Die Party findet um 18 Uhr bei mir zu Hause {3}. Kannst du mir bitte bis Donnerstag {4}, ob du kommst?
+
+Ich freue mich sehr {5} dich!
+
+Liebe {6},
+Taras`,
+    gaps: [
+      { answer: "geht", hint: "es … dir gut" },
+      { answer: "einladen", hint: "запросити (Infinitiv)" },
+      { answer: "statt", hint: "stattfinden — відбуватися" },
+      { answer: "sagen", alts: ["mitteilen", "schreiben"], hint: "сказати" },
+      { answer: "auf", hint: "прийменник" },
+      { answer: "Grüße", hint: "прощання" },
+    ],
+  },
+];
+
+/* ============================================================
+   Переклад речень UA → DE — крок 3: активне продукування.
+   Речення = найчастіші фрази іспитових листів.
+   ============================================================ */
+export const TRANSLATIONS = [
+  { uk: "Дуже дякую за твого листа!", de: "Vielen Dank für deinen Brief!", alts: ["Danke für deinen Brief"] },
+  { uk: "Я сподіваюся, що в тебе все добре.", de: "Ich hoffe, es geht dir gut.", alts: ["Ich hoffe dass es dir gut geht"] },
+  { uk: "Я пишу тобі, бо мені потрібна твоя допомога.", de: "Ich schreibe dir, weil ich deine Hilfe brauche." },
+  { uk: "На жаль, я не можу прийти.", de: "Leider kann ich nicht kommen.", alts: ["Ich kann leider nicht kommen"] },
+  { uk: "Мені дуже шкода, що я не можу прийти.", de: "Es tut mir sehr leid, dass ich nicht kommen kann.", alts: ["Es tut mir leid dass ich nicht kommen kann"] },
+  { uk: "Чи міг би ти мені, будь ласка, допомогти?", de: "Könntest du mir bitte helfen?", alts: ["Könntest du mir helfen"] },
+  { uk: "Я з нетерпінням чекаю на твою відповідь.", de: "Ich freue mich auf deine Antwort." },
+  { uk: "Як щодо того, щоб зустрітися в суботу?", de: "Wie wäre es, wenn wir uns am Samstag treffen?", alts: ["Wie wäre es wenn wir uns am Samstag treffen würden"] },
+  { uk: "Я хотів би перенести зустріч (термін).", de: "Ich möchte den Termin verschieben.", alts: ["Ich würde gern den Termin verschieben", "Ich würde den Termin gern verschieben"] },
+  { uk: "Заздалегідь дякую!", de: "Vielen Dank im Voraus!", alts: ["Danke im Voraus"] },
+  { uk: "Вибач, що я відповідаю так пізно.", de: "Entschuldige, dass ich so spät antworte.", alts: ["Entschuldigung dass ich so spät antworte"] },
+  { uk: "Опалення не працює вже три дні.", de: "Die Heizung funktioniert seit drei Tagen nicht.", alts: ["Seit drei Tagen funktioniert die Heizung nicht"] },
+  { uk: "Будь ласка, повідомте мені, коли починається курс.", de: "Bitte teilen Sie mir mit, wann der Kurs beginnt." },
+  { uk: "Я був би радий, якби Ви могли мені допомогти.", de: "Ich würde mich freuen, wenn Sie mir helfen könnten." },
+  { uk: "Тому я не можу завтра прийти на роботу.", de: "Deshalb kann ich morgen nicht zur Arbeit kommen.", alts: ["Deswegen kann ich morgen nicht zur Arbeit kommen", "Darum kann ich morgen nicht zur Arbeit kommen"] },
+  { uk: "Хоча я втомлений, я вчу німецьку.", de: "Obwohl ich müde bin, lerne ich Deutsch." },
+  { uk: "Я вчу німецьку, щоб знайти роботу.", de: "Ich lerne Deutsch, um Arbeit zu finden.", alts: ["Ich lerne Deutsch um eine Arbeit zu finden"] },
+  { uk: "Чи можна перенести зустріч на понеділок?", de: "Kann ich den Termin auf Montag verschieben?", alts: ["Könnte ich den Termin auf Montag verschieben", "Kann man den Termin auf Montag verschieben"] },
+  { uk: "Крім того, у квартирі дуже холодно.", de: "Außerdem ist es in der Wohnung sehr kalt.", alts: ["Außerdem ist die Wohnung sehr kalt"] },
+  { uk: "На мою думку, це гарна ідея.", de: "Meiner Meinung nach ist das eine gute Idee." },
+  { uk: "Я захворів і не можу прийти.", de: "Ich bin krank und kann nicht kommen.", alts: ["Ich bin krank geworden und kann nicht kommen"] },
+  { uk: "Напиши мені, коли матимеш час.", de: "Schreib mir, wenn du Zeit hast." },
+  { uk: "Я щойно прочитав твоє повідомлення.", de: "Ich habe gerade deine Nachricht gelesen." },
+  { uk: "Дуже дякую за Вашу відповідь.", de: "Vielen Dank für Ihre Antwort." },
+];
