@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { WRITING_STRUCTURE, REDEMITTEL, WRITING_CHECKLIST, WRITING_PROMPTS, CLOZE_LETTERS, TRANSLATIONS } from "./writing";
+import { WRITING_STRUCTURE, REDEMITTEL, WRITING_CHECKLIST, WRITING_PROMPTS, CLOZE_LETTERS, TRANSLATIONS } from "./writingData";
 
 const DRAFTS_KEY = "german-writing-drafts-v1";
 
