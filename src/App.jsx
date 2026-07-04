@@ -2,6 +2,7 @@ import React, { useState, useMemo, useReducer, useEffect, useRef } from "react";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import { MODULES, LEVELS } from "./data";
 import { GLOSSARY } from "./glossary";
+import { WritingHome, WritingPromptView } from "./Writing";
 
 /* ============================================================
    German Grammar Trainer (A0 → A1 → A2 → B1)
@@ -38,6 +39,12 @@ const allCards = () =>
 const moduleById = (id) => MODULES.find((m) => m.id === id);
 
 const BOX_DAYS = { 1: 0, 2: 1, 3: 3, 4: 7, 5: 16 };
+
+// ---------- persistence (auto-save progress across sessions) ----------
+const STORAGE_KEY = "german-b1-progress-v1";
+function loadSaved() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
 
 // ---------- glossary auto-linking ----------
 const GLOSS_KEYS = Object.keys(GLOSSARY).sort((a, b) => b.length - a.length);
@@ -105,13 +112,18 @@ function srsReducer(state, action) {
 
 // ============================================================
 export default function App() {
-  const [srs, dispatch] = useReducer(srsReducer, {});
+  const [srs, dispatch] = useReducer(srsReducer, undefined, () => loadSaved().srs || {});
   const [view, setView] = useState({ name: "home" });
-  const [dark, setDark] = useState(true);
-  const [streak, setStreak] = useState(0);
-  const [showUk, setShowUk] = useState(true);
+  const [dark, setDark] = useState(() => loadSaved().dark ?? true);
+  const [streak, setStreak] = useState(() => loadSaved().streak || 0);
+  const [showUk, setShowUk] = useState(() => loadSaved().showUk ?? true);
   const [level, setLevel] = useState("A0");
   const fileRef = useRef(null);
+
+  // auto-save so progress survives reloads/closed tabs — the whole point of a 2-week study plan
+  useEffect(() => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ srs, streak, dark, showUk })); } catch {}
+  }, [srs, streak, dark, showUk]);
 
   const cards = useMemo(() => allCards(), []);
   const now = Date.now();
@@ -208,7 +220,17 @@ export default function App() {
               onDiagnostic={() => setView({ name: "diagstart" })}
               onContinue={() => nextModule && setView({ name: "module", id: nextModule.id })}
               onModule={(id) => setView({ name: "module", id })}
+              onWriting={() => setView({ name: "writing" })}
               onExport={exportProgress} onImport={() => fileRef.current?.click()} />
+          )}
+          {view.name === "writing" && (
+            <WritingHome key="writing" theme={theme}
+              onBack={() => setView({ name: "home" })}
+              onOpenPrompt={(id) => setView({ name: "writingPrompt", id })} />
+          )}
+          {view.name === "writingPrompt" && (
+            <WritingPromptView key={"w" + view.id} theme={theme} promptId={view.id}
+              onBack={() => setView({ name: "writing" })} />
           )}
           {view.name === "module" && (
             <ModuleView key={"m" + view.id} theme={theme} showUk={showUk}
@@ -268,7 +290,7 @@ function LevelTabs({ theme, level, setLevel, levelStats }) {
 }
 
 // ---------- Home ----------
-function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, dueCount, streak, onStartSession, onDiagnostic, onContinue, onModule, onExport, onImport }) {
+function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, dueCount, streak, onStartSession, onDiagnostic, onContinue, onModule, onWriting, onExport, onImport }) {
   const totalMastered = Object.values(moduleStats).reduce((a, s) => a + s.mastered, 0);
   const totalQ = Object.values(moduleStats).reduce((a, s) => a + s.total, 0);
   const overall = Math.round((totalMastered / totalQ) * 100);
@@ -323,6 +345,16 @@ function Home({ theme, moduleStats, levelStats, level, setLevel, nextModule, due
           🎯 Діагностичний тест
         </button>
       </div>
+
+      <motion.button className="focusable" onClick={onWriting} whileHover={{ y: -2 }}
+        style={{ width: "100%", textAlign: "left", background: theme.panel, border: `1px solid #b88bc4`, borderRadius: 12, padding: "14px 16px", marginBottom: 22, color: theme.text, display: "flex", alignItems: "center", gap: 14 }}>
+        <span style={{ width: 8, height: 40, borderRadius: 4, background: "#b88bc4", flexShrink: 0 }} />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: theme.dim, fontWeight: 700 }}>✍️ Підготовка до іспиту</div>
+          <div style={{ fontWeight: 700, fontSize: 16 }}>Schreiben — тренування письма</div>
+          <div style={{ fontSize: 12.5, color: theme.dim }}>Структура листа, готові фрази та 8 завдань у форматі B1</div>
+        </div>
+      </motion.button>
 
       <div style={{ display: "flex", gap: 8, marginBottom: 22 }}>
         <button className="focusable" onClick={onExport} style={{ fontSize: 12, color: theme.dim, background: "none", border: `1px solid ${theme.line}`, borderRadius: 8, padding: "6px 10px" }}>⬇ Зберегти прогрес</button>
