@@ -3,8 +3,10 @@
 #   - macOS:   DMG, universal (Intel + Apple Silicon)
 #
 # Triggers:
-#   - pushing a tag like v1.1.0  → builds AND attaches installers to a GitHub Release
-#   - manual run (workflow_dispatch) → builds and stores installers as workflow artifacts
+#   - pushing a tag like v1.1.0
+#   - manual run (workflow_dispatch)
+# Either way, installers are attached to a GitHub Release named after
+# the version in package.json (v<version>), created if it doesn't exist.
 name: Desktop builds
 
 on:
@@ -50,10 +52,25 @@ jobs:
             dist-electron/*.exe
             dist-electron/*.dmg
 
-      - name: Attach to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/')
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version
+        id: ver
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Download installers
+        uses: actions/download-artifact@v4
+        with:
+          path: installers
+          merge-multiple: true
+
+      - name: Create / update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            dist-electron/*.exe
-            dist-electron/*.dmg
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('v{0}', steps.ver.outputs.version) }}
+          name: Deutsch B1 ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('v{0}', steps.ver.outputs.version) }}
+          files: installers/*
