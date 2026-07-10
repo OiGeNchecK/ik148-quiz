@@ -19,8 +19,11 @@ export default function Welcome({ theme, lang, setLang, onContinue }) {
         <motion.img
           src="./school-logo.png" alt="SprachHaus"
           initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5 }}
-          style={{ width: 200, height: 200, objectFit: "cover", borderRadius: 28, marginBottom: 6, boxShadow: "0 0 60px rgba(224,164,88,.15)" }} />
+          style={{ width: 180, height: 180, objectFit: "cover", borderRadius: 28, marginBottom: 14, boxShadow: "0 0 70px rgba(224,164,88,.2)" }} />
 
+        <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 2 }}>
+          Sprach<span style={{ color: theme.accent }}>Haus</span>
+        </div>
         <div style={{ fontSize: 15, color: theme.dim, marginBottom: 26, letterSpacing: "0.04em" }}>Deutsch A0–B1</div>
 
         <h1 style={{ fontSize: 22, fontWeight: 800, margin: "0 0 16px", letterSpacing: "-0.02em" }}>{s.welcomeChoose}</h1>
