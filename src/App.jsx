@@ -4,6 +4,7 @@ import { MODULES, LEVELS } from "./data";
 import { GLOSSARY } from "./glossary";
 import { WritingHome, WritingPromptView } from "./Writing";
 import PlanView from "./Plan";
+import Welcome from "./Welcome";
 import { LANGS, LangContext, makeT, useT, useLang, moduleSub, levelSub, levelBlurb } from "./i18n";
 
 /* ============================================================
@@ -120,14 +121,15 @@ export default function App() {
   const [streak, setStreak] = useState(() => loadSaved().streak || 0);
   const [showUk, setShowUk] = useState(() => loadSaved().showUk ?? true);
   const [lang, setLang] = useState(() => loadSaved().lang || "uk");
+  const [onboarded, setOnboarded] = useState(() => !!loadSaved().onboarded);
   const [level, setLevel] = useState("A0");
   const fileRef = useRef(null);
   const t = makeT(lang);
 
   // auto-save so progress survives reloads/closed tabs — the whole point of a 2-week study plan
   useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ srs, streak, dark, showUk, lang })); } catch {}
-  }, [srs, streak, dark, showUk, lang]);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ srs, streak, dark, showUk, lang, onboarded })); } catch {}
+  }, [srs, streak, dark, showUk, lang, onboarded]);
 
   const cards = useMemo(() => allCards(), []);
   const now = Date.now();
@@ -190,6 +192,15 @@ export default function App() {
     r.readAsText(f);
   }
 
+  // school welcome screen: emblem + learning-language choice, shown until "Next"
+  if (!onboarded) {
+    return (
+      <MotionConfig reducedMotion="user">
+        <Welcome theme={theme} lang={lang} setLang={setLang} onContinue={() => setOnboarded(true)} />
+      </MotionConfig>
+    );
+  }
+
   return (
     <MotionConfig reducedMotion="user">
     <LangContext.Provider value={lang}>
@@ -203,8 +214,8 @@ export default function App() {
 
       <header style={{ position: "sticky", top: 0, zIndex: 10, background: theme.bg + "ee", backdropFilter: "blur(8px)", borderBottom: `1px solid ${theme.line}`, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
         <button className="focusable" onClick={() => setView({ name: "home" })} style={{ background: "none", border: "none", color: theme.text, display: "flex", alignItems: "center", gap: 10, padding: 0 }}>
-          <span style={{ fontSize: 22 }}>🇩🇪</span>
-          <span style={{ fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>Deutsch A0–B1</span>
+          <img src="./school-logo.png" alt="SprachHaus" style={{ width: 30, height: 30, borderRadius: 8, objectFit: "cover" }} />
+          <span style={{ fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>SprachHaus <span style={{ fontWeight: 500, fontSize: 13, color: theme.dim }}>· A0–B1</span></span>
         </button>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           {dueCards.length > 0 && (
