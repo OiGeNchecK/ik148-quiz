@@ -214,7 +214,7 @@ export default function App() {
 
       <header style={{ position: "sticky", top: 0, zIndex: 10, background: theme.bg + "ee", backdropFilter: "blur(8px)", borderBottom: `1px solid ${theme.line}`, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
         <button className="focusable" onClick={() => setView({ name: "home" })} style={{ background: "none", border: "none", color: theme.text, display: "flex", alignItems: "center", gap: 10, padding: 0 }}>
-          <img src="./school-logo.png" alt="SprachHaus" style={{ width: 34, height: 34 }} />
+          <img src="./school-logo.png" alt="SprachHaus" style={{ width: 42, height: 42 }} />
           <span style={{ fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>SprachHaus <span style={{ fontWeight: 500, fontSize: 13, color: theme.dim }}>· A0–B1</span></span>
         </button>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>

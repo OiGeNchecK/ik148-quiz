@@ -19,7 +19,7 @@ export default function Welcome({ theme, lang, setLang, onContinue }) {
         <motion.img
           src="./school-logo.png" alt="SprachHaus"
           initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5 }}
-          style={{ width: 280, height: 280, marginBottom: 0 }} />
+          style={{ width: "min(360px, 78vw)", height: "auto", marginBottom: 4 }} />
 
         <div style={{ fontSize: 15, color: theme.dim, marginBottom: 24, letterSpacing: "0.04em" }}>Deutsch A0–B1</div>
 
