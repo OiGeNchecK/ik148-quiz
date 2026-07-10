@@ -5,7 +5,7 @@ import { GLOSSARY } from "./glossary";
 import { WritingHome, WritingPromptView } from "./Writing";
 import PlanView from "./Plan";
 import Welcome from "./Welcome";
-import { LANGS, LangContext, makeT, useT, useLang, moduleSub, levelSub, levelBlurb } from "./i18n";
+import { LANGS, LangContext, makeT, useT, useLang, moduleSub, levelSub, levelBlurb, isRTL } from "./i18n";
 
 /* ============================================================
    German Grammar Trainer (A0 → A1 → A2 → B1)
@@ -204,7 +204,7 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
     <LangContext.Provider value={lang}>
-    <div style={{ minHeight: "100vh", background: theme.bg, color: theme.text, fontFamily: "'Segoe UI', system-ui, sans-serif", transition: "background .3s" }}>
+    <div dir={isRTL(lang) ? "rtl" : "ltr"} style={{ minHeight: "100vh", background: theme.bg, color: theme.text, fontFamily: "'Segoe UI', system-ui, sans-serif", transition: "background .3s" }}>
       <style>{`
         * { box-sizing: border-box; }
         button { font-family: inherit; cursor: pointer; }

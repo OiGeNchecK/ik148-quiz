@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
-import { LANGS, STR } from "./i18n";
+import { LANGS, STR, isRTL } from "./i18n";
 
 /* ============================================================
    Стартовий екран: емблема школи → вибір мови навчання →
@@ -12,7 +12,7 @@ import { LANGS, STR } from "./i18n";
 export default function Welcome({ theme, lang, setLang, onContinue }) {
   const s = STR[lang] || STR.uk;
   return (
-    <div style={{ minHeight: "100vh", background: theme.bg, color: theme.text, fontFamily: "'Segoe UI', system-ui, sans-serif", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px 18px" }}>
+    <div dir={isRTL(lang) ? "rtl" : "ltr"} style={{ minHeight: "100vh", background: theme.bg, color: theme.text, fontFamily: "'Segoe UI', system-ui, sans-serif", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px 18px" }}>
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
         style={{ width: "100%", maxWidth: 560, textAlign: "center" }}>
 
