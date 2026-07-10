@@ -207,18 +207,26 @@ export default function App() {
         button { font-family: inherit; cursor: pointer; }
         @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
         .focusable:focus-visible { outline: 2px solid ${theme.accent}; outline-offset: 2px; border-radius: 4px; }
+        input, select, textarea, button { -webkit-tap-highlight-color: transparent; }
+        @media (max-width: 560px) {
+          .app-header { padding: 10px 12px !important; }
+          .hdr-sub, .due-badge { display: none !important; }
+          .lang-select { max-width: 118px; }
+          .app-nav { padding: 10px 12px 0 !important; }
+          .app-main { padding-left: 12px !important; padding-right: 12px !important; }
+        }
       `}</style>
 
-      <header style={{ position: "sticky", top: 0, zIndex: 10, background: theme.bg + "ee", backdropFilter: "blur(8px)", borderBottom: `1px solid ${theme.line}`, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+      <header className="app-header" style={{ position: "sticky", top: 0, zIndex: 10, background: theme.bg + "ee", backdropFilter: "blur(8px)", borderBottom: `1px solid ${theme.line}`, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
         <button className="focusable" onClick={() => setView({ name: "home" })} style={{ background: "none", border: "none", color: theme.text, display: "flex", alignItems: "center", gap: 10, padding: 0 }}>
           <img src="./school-logo.png" alt="SprachHaus" style={{ width: 42, height: 42 }} />
-          <span style={{ fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>SprachHaus <span style={{ fontWeight: 500, fontSize: 13, color: theme.dim }}>· A0–B1</span></span>
+          <span style={{ fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>SprachHaus <span className="hdr-sub" style={{ fontWeight: 500, fontSize: 13, color: theme.dim }}>· A0–B1</span></span>
         </button>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           {dueCards.length > 0 && (
-            <span style={{ fontSize: 12, color: theme.dim }}>{t("due", { n: dueCards.length })}</span>
+            <span className="due-badge" style={{ fontSize: 12, color: theme.dim }}>{t("due", { n: dueCards.length })}</span>
           )}
-          <select className="focusable" value={lang} onChange={(e) => setLang(e.target.value)} aria-label="Language"
+          <select className="focusable lang-select" value={lang} onChange={(e) => setLang(e.target.value)} aria-label="Language"
             style={{ background: theme.panel2, border: `1px solid ${theme.line}`, color: theme.text, borderRadius: 8, padding: "6px 6px", fontSize: 13, fontFamily: "inherit", cursor: "pointer" }}>
             {LANGS.map((l) => <option key={l.id} value={l.id}>{l.flag} {l.name}</option>)}
           </select>
@@ -228,7 +236,7 @@ export default function App() {
 
       <NavBar theme={theme} view={view} setView={setView} />
 
-      <main style={{ maxWidth: 820, margin: "0 auto", padding: "18px 18px 80px" }}>
+      <main className="app-main" style={{ maxWidth: 820, margin: "0 auto", padding: "18px 18px 80px" }}>
         <AnimatePresence mode="wait">
           {view.name === "home" && (
             <Home key="home" theme={theme} moduleStats={moduleStats} levelStats={levelStats}
@@ -301,7 +309,7 @@ function NavBar({ theme, view, setView }) {
     { id: "plan", label: "📅 " + t("navPlan"), active: planActive },
   ];
   return (
-    <nav style={{ maxWidth: 820, margin: "0 auto", padding: "12px 18px 0", display: "flex", gap: 8 }}>
+    <nav className="app-nav" style={{ maxWidth: 820, margin: "0 auto", padding: "12px 18px 0", display: "flex", gap: 8 }}>
       {items.map((it) => (
         <button key={it.id} className="focusable" onClick={() => setView({ name: it.id })}
           style={{
@@ -482,7 +490,7 @@ function DiagStart({ theme, levelStats, onBack, onStart }) {
   const lang = useLang();
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 14, padding: 0 }}>{t("back")}</button>
+      <button className="focusable" onClick={onBack} style={{ background: theme.panel, border: `1px solid ${theme.line}`, color: theme.text, fontSize: 14, fontWeight: 600, borderRadius: 10, padding: "8px 14px", marginBottom: 14 }}>{t("back")}</button>
       <h1 style={{ fontSize: 26, fontWeight: 800, margin: "0 0 6px", letterSpacing: "-0.02em" }}>{t("diagTitle")}</h1>
       <p style={{ color: theme.dim, fontSize: 14.5, lineHeight: 1.55, margin: "0 0 20px", maxWidth: 560 }}>
         {t("diagIntro")}
@@ -518,7 +526,7 @@ function ModuleView({ theme, module: m, stats, onBack, onPractice, showUk }) {
   const lang = useLang();
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 14, padding: 0 }}>{t("back")}</button>
+      <button className="focusable" onClick={onBack} style={{ background: theme.panel, border: `1px solid ${theme.line}`, color: theme.text, fontSize: 14, fontWeight: 600, borderRadius: 10, padding: "8px 14px", marginBottom: 14 }}>{t("back")}</button>
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 4 }}>
         <span style={{ width: 10, height: 30, borderRadius: 4, background: m.color }} />
         <span style={{ fontSize: 11, fontWeight: 800, color: "#1a1206", background: m.color, borderRadius: 6, padding: "2px 7px" }}>{m.level}</span>
@@ -605,7 +613,7 @@ function Session({ theme, mode, moduleId, diagLevel, cards, dueCards, srs, onAns
   return (
     <motion.div key={idx} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-        <button className="focusable" onClick={onQuit} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, padding: 0 }}>{t("exit")}</button>
+        <button className="focusable" onClick={onQuit} style={{ background: theme.panel, border: `1px solid ${theme.line}`, color: theme.text, fontSize: 14, fontWeight: 600, borderRadius: 10, padding: "8px 14px" }}>{t("exit")}</button>
         <span style={{ fontSize: 13, color: theme.dim }}>{modeLabel} · {idx + 1} / {total}</span>
       </div>
       <div style={{ height: 6, borderRadius: 4, background: theme.panel2, marginBottom: 22, overflow: "hidden" }}>

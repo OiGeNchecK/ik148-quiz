@@ -60,7 +60,7 @@ export function WritingHome({ theme, onBack, onOpenPrompt }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 14, padding: 0 }}>{t("back")}</button>
+      <button className="focusable" onClick={onBack} style={{ background: theme.panel, border: `1px solid ${theme.line}`, color: theme.text, fontSize: 14, fontWeight: 600, borderRadius: 10, padding: "8px 14px", marginBottom: 14 }}>{t("back")}</button>
       <h1 style={{ fontSize: 26, fontWeight: 800, margin: "0 0 6px", letterSpacing: "-0.02em" }}>{t("wTitle")}</h1>
       <p style={{ color: theme.dim, fontSize: 14.5, lineHeight: 1.55, margin: "0 0 14px", maxWidth: 620 }}>
         {t("wIntro")}
@@ -178,7 +178,7 @@ export function WritingPromptView({ theme, promptId, onBack }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 14, padding: 0 }}>{t("backToList")}</button>
+      <button className="focusable" onClick={onBack} style={{ background: theme.panel, border: `1px solid ${theme.line}`, color: theme.text, fontSize: 14, fontWeight: 600, borderRadius: 10, padding: "8px 14px", marginBottom: 14 }}>{t("backToList")}</button>
 
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
         <span style={{ fontSize: 11, fontWeight: 800, color: REGISTER_COLOR[prompt.register], border: `1px solid ${REGISTER_COLOR[prompt.register]}`, borderRadius: 6, padding: "2px 7px" }}>
@@ -304,7 +304,7 @@ function ClozeExercise({ theme, letter, onBack }) {
 
   return (
     <div>
-      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 12, padding: 0 }}>{t("otherLetter")}</button>
+      <button className="focusable" onClick={onBack} style={{ background: theme.panel, border: `1px solid ${theme.line}`, color: theme.text, fontSize: 14, fontWeight: 600, borderRadius: 10, padding: "8px 14px", marginBottom: 14 }}>{t("otherLetter")}</button>
       <div style={{ fontWeight: 800, fontSize: 18, marginBottom: 10 }}>{letter.title} <span style={{ fontWeight: 400, fontSize: 13, color: theme.dim }}>· {X.clozeSubs?.[letter.id] || letter.titleUk}</span></div>
 
       <div style={{ background: theme.panel, border: `1px solid ${theme.line}`, borderRadius: 12, padding: "16px 18px", whiteSpace: "pre-line", fontSize: 15, lineHeight: 2.1 }}>

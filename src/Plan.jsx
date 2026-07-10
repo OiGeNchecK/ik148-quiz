@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { MODULES } from "./data";
-import { useLang, extra } from "./i18n";
+import { useLang, useT, extra } from "./i18n";
 
 /* ============================================================
    План на 14 днів до іспиту B1.
@@ -35,6 +35,7 @@ const PLAN = [
 const moduleById = (id) => MODULES.find((m) => m.id === id);
 
 export default function PlanView({ theme, onBack, onModule }) {
+  const t = useT();
   const lang = useLang();
   const X = extra(lang);
   const XU = extra("uk");
@@ -56,7 +57,7 @@ export default function PlanView({ theme, onBack, onModule }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-      <button className="focusable" onClick={onBack} style={{ background: "none", border: "none", color: theme.dim, fontSize: 14, marginBottom: 14, padding: 0 }}>←</button>
+      <button className="focusable" onClick={onBack} style={{ background: theme.panel, border: `1px solid ${theme.line}`, color: theme.text, fontSize: 14, fontWeight: 600, borderRadius: 10, padding: "8px 14px", marginBottom: 14 }}>{t("back")}</button>
       <h1 style={{ fontSize: 26, fontWeight: 800, margin: "0 0 6px", letterSpacing: "-0.02em" }}>{L.title}</h1>
       <p style={{ color: theme.dim, fontSize: 14.5, lineHeight: 1.55, margin: "0 0 14px", maxWidth: 620 }}>{L.intro}</p>
 
