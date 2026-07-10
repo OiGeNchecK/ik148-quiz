@@ -117,19 +117,18 @@ function srsReducer(state, action) {
 export default function App() {
   const [srs, dispatch] = useReducer(srsReducer, undefined, () => loadSaved().srs || {});
   const [view, setView] = useState({ name: "home" });
-  const [dark, setDark] = useState(() => loadSaved().dark ?? true);
   const [streak, setStreak] = useState(() => loadSaved().streak || 0);
   const [showUk, setShowUk] = useState(() => loadSaved().showUk ?? true);
   const [lang, setLang] = useState(() => loadSaved().lang || "uk");
-  const [onboarded, setOnboarded] = useState(() => !!loadSaved().onboarded);
+  const [onboarded, setOnboarded] = useState(false); // welcome screen greets on every launch
   const [level, setLevel] = useState("A0");
   const fileRef = useRef(null);
   const t = makeT(lang);
 
   // auto-save so progress survives reloads/closed tabs — the whole point of a 2-week study plan
   useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ srs, streak, dark, showUk, lang, onboarded })); } catch {}
-  }, [srs, streak, dark, showUk, lang, onboarded]);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ srs, streak, showUk, lang })); } catch {}
+  }, [srs, streak, showUk, lang]);
 
   const cards = useMemo(() => allCards(), []);
   const now = Date.now();
@@ -174,9 +173,7 @@ export default function App() {
     if (!startLevelRef.current && nextModule) { setLevel(nextModule.level); startLevelRef.current = true; }
   }, [nextModule]);
 
-  const theme = dark
-    ? { bg: "#13151a", panel: "#1c1f27", panel2: "#23272f", text: "#eef0f4", dim: "#9aa0ab", line: "#2c313b", accent: "#e0a458" }
-    : { bg: "#f6f4ef", panel: "#ffffff", panel2: "#f0ede5", text: "#1d2128", dim: "#6b7280", line: "#e4e0d6", accent: "#c47a3a" };
+  const theme = { bg: "#13151a", panel: "#1c1f27", panel2: "#23272f", text: "#eef0f4", dim: "#9aa0ab", line: "#2c313b", accent: "#e0a458" };
 
   function exportProgress() {
     const blob = new Blob([JSON.stringify({ srs, streak }, null, 2)], { type: "application/json" });
@@ -226,7 +223,6 @@ export default function App() {
             {LANGS.map((l) => <option key={l.id} value={l.id}>{l.flag} {l.name}</option>)}
           </select>
           <button className="focusable" title={t("explToggle")} onClick={() => setShowUk((v) => !v)} style={{ background: theme.panel2, border: `1px solid ${theme.line}`, color: theme.text, borderRadius: 8, padding: "6px 10px", fontSize: 13 }}>{showUk ? "💬" : "🇩🇪"}</button>
-          <button className="focusable" onClick={() => setDark((v) => !v)} style={{ background: theme.panel2, border: `1px solid ${theme.line}`, color: theme.text, borderRadius: 8, padding: "6px 10px", fontSize: 13 }}>{dark ? "☀️" : "🌙"}</button>
         </div>
       </header>
 
