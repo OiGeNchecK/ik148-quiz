@@ -214,7 +214,7 @@ export default function App() {
 
       <header style={{ position: "sticky", top: 0, zIndex: 10, background: theme.bg + "ee", backdropFilter: "blur(8px)", borderBottom: `1px solid ${theme.line}`, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
         <button className="focusable" onClick={() => setView({ name: "home" })} style={{ background: "none", border: "none", color: theme.text, display: "flex", alignItems: "center", gap: 10, padding: 0 }}>
-          <img src="./school-logo.png" alt="SprachHaus" style={{ width: 30, height: 30, borderRadius: 8, objectFit: "cover" }} />
+          <img src="./school-logo.png" alt="SprachHaus" style={{ width: 34, height: 34 }} />
           <span style={{ fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>SprachHaus <span style={{ fontWeight: 500, fontSize: 13, color: theme.dim }}>· A0–B1</span></span>
         </button>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -230,7 +230,9 @@ export default function App() {
         </div>
       </header>
 
-      <main style={{ maxWidth: 820, margin: "0 auto", padding: "22px 18px 80px" }}>
+      <NavBar theme={theme} view={view} setView={setView} />
+
+      <main style={{ maxWidth: 820, margin: "0 auto", padding: "18px 18px 80px" }}>
         <AnimatePresence mode="wait">
           {view.name === "home" && (
             <Home key="home" theme={theme} moduleStats={moduleStats} levelStats={levelStats}
@@ -289,6 +291,34 @@ export default function App() {
     </div>
     </LangContext.Provider>
     </MotionConfig>
+  );
+}
+
+// ---------- Section navigation (always visible) ----------
+function NavBar({ theme, view, setView }) {
+  const t = useT();
+  const writingActive = view.name === "writing" || view.name === "writingPrompt";
+  const planActive = view.name === "plan";
+  const items = [
+    { id: "home", label: "🏠 " + t("navHome"), active: !writingActive && !planActive },
+    { id: "writing", label: "✍️ " + t("navWriting"), active: writingActive },
+    { id: "plan", label: "📅 " + t("navPlan"), active: planActive },
+  ];
+  return (
+    <nav style={{ maxWidth: 820, margin: "0 auto", padding: "12px 18px 0", display: "flex", gap: 8 }}>
+      {items.map((it) => (
+        <button key={it.id} className="focusable" onClick={() => setView({ name: it.id })}
+          style={{
+            flex: 1, background: it.active ? theme.accent : theme.panel,
+            color: it.active ? "#1a1206" : theme.text,
+            border: `2px solid ${it.active ? theme.accent : theme.line}`,
+            borderRadius: 12, padding: "10px 8px", fontSize: 14, fontWeight: 800,
+            transition: "background .2s, border-color .2s",
+          }}>
+          {it.label}
+        </button>
+      ))}
+    </nav>
   );
 }
 

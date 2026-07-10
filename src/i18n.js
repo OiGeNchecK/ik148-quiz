@@ -139,8 +139,8 @@ export const STR = {
     focusKicker: "✍️ Головний фокус",
     writingTitle: "Schreiben — письмо",
     writingSub: "Фрази · Lückentext · переклад · листи",
-    planKicker: "📅 До іспиту",
-    planTitle: "План на 14 днів",
+    planKicker: "📅 Крок за кроком",
+    planTitle: "Навчальний план",
     planSub: "Що вчити щодня — граматика + письмо",
     saveBtn: "⬇ Зберегти прогрес",
     loadBtn: "⬆ Завантажити прогрес",
@@ -254,8 +254,8 @@ export const STR = {
     focusKicker: "✍️ Главный фокус",
     writingTitle: "Schreiben — письмо",
     writingSub: "Фразы · Lückentext · перевод · письма",
-    planKicker: "📅 К экзамену",
-    planTitle: "План на 14 дней",
+    planKicker: "📅 Шаг за шагом",
+    planTitle: "Учебный план",
     planSub: "Что учить каждый день — грамматика + письмо",
     saveBtn: "⬇ Сохранить прогресс",
     loadBtn: "⬆ Загрузить прогресс",
@@ -369,8 +369,8 @@ export const STR = {
     focusKicker: "✍️ Main focus",
     writingTitle: "Schreiben — writing",
     writingSub: "Phrases · cloze · translation · letters",
-    planKicker: "📅 Before the exam",
-    planTitle: "14-day plan",
+    planKicker: "📅 Step by step",
+    planTitle: "Study plan",
     planSub: "What to study daily — grammar + writing",
     saveBtn: "⬇ Save progress",
     loadBtn: "⬆ Load progress",
@@ -484,8 +484,8 @@ export const STR = {
     focusKicker: "✍️ Ana odak",
     writingTitle: "Schreiben — yazma",
     writingSub: "Kalıplar · boşluk doldurma · çeviri · mektuplar",
-    planKicker: "📅 Sınavdan önce",
-    planTitle: "14 günlük plan",
+    planKicker: "📅 Adım adım",
+    planTitle: "Çalışma planı",
     planSub: "Her gün ne çalışmalı — dil bilgisi + yazma",
     saveBtn: "⬇ İlerlemeyi kaydet",
     loadBtn: "⬆ İlerlemeyi yükle",
@@ -599,8 +599,8 @@ export const STR = {
     focusKicker: "✍️ Hauptfokus",
     writingTitle: "Schreiben",
     writingSub: "Redemittel · Lückentext · Übersetzen · Briefe",
-    planKicker: "📅 Vor der Prüfung",
-    planTitle: "14-Tage-Plan",
+    planKicker: "📅 Schritt für Schritt",
+    planTitle: "Lernplan",
     planSub: "Was täglich zu lernen ist — Grammatik + Schreiben",
     saveBtn: "⬇ Fortschritt speichern",
     loadBtn: "⬆ Fortschritt laden",
@@ -714,8 +714,8 @@ export const STR = {
     focusKicker: "✍️ मुख्य फोकस",
     writingTitle: "Schreiben — लेखन",
     writingSub: "वाक्यांश · रिक्त स्थान · अनुवाद · पत्र",
-    planKicker: "📅 परीक्षा से पहले",
-    planTitle: "14 दिन की योजना",
+    planKicker: "📅 कदम दर कदम",
+    planTitle: "अध्ययन योजना",
     planSub: "रोज़ क्या पढ़ें — व्याकरण + लेखन",
     saveBtn: "⬇ प्रगति सहेजें",
     loadBtn: "⬆ प्रगति लोड करें",
@@ -849,7 +849,7 @@ const EXTRA = {
       ["🪜", "Scaffolding письма", "фрази → речення (Lückentext, переклад) → повний лист. Кожен крок спирається на попередній."],
       ["⏱", "Таймбоксинг", "40–50 хв щодня перемагають 5 годин раз на тиждень. Дні 11–12 — листи на час, як на іспиті."],
     ],
-    planLabels: { title: "📅 План на 14 днів до іспиту", intro: "Щодня дві частини: граматика і письмо. Познач виконане — план запам'ятає. Якщо день пропущено — просто продовжуй.", methodsTitle: "🔬 На яких методах побудований план", day: "День", today: "СЬОГОДНІ", done: "✓ виконано", min: "хв", gram: "📚 Граматика", writ: "✍️ Письмо" },
+    planLabels: { title: "📅 Навчальний план", intro: "Щодня дві частини: граматика і письмо. Познач виконане — план запам'ятає. Якщо день пропущено — просто продовжуй.", methodsTitle: "🔬 На яких методах побудований план", day: "День", today: "СЬОГОДНІ", done: "✓ виконано", min: "хв", gram: "📚 Граматика", writ: "✍️ Письмо" },
   },
 
   ru: {
@@ -905,7 +905,7 @@ const EXTRA = {
       ["🪜", "Scaffolding письма", "фразы → предложения (Lückentext, перевод) → полное письмо. Каждый шаг опирается на предыдущий."],
       ["⏱", "Таймбоксинг", "40–50 минут ежедневно побеждают 5 часов раз в неделю. Дни 11–12 — письма на время, как на экзамене."],
     ],
-    planLabels: { title: "📅 План на 14 дней до экзамена", intro: "Каждый день две части: грамматика и письмо. Отмечай сделанное — план запомнит. Пропустил день — просто продолжай.", methodsTitle: "🔬 На каких методах построен план", day: "День", today: "СЕГОДНЯ", done: "✓ выполнено", min: "мин", gram: "📚 Грамматика", writ: "✍️ Письмо" },
+    planLabels: { title: "📅 Учебный план", intro: "Каждый день две части: грамматика и письмо. Отмечай сделанное — план запомнит. Пропустил день — просто продолжай.", methodsTitle: "🔬 На каких методах построен план", day: "День", today: "СЕГОДНЯ", done: "✓ выполнено", min: "мин", gram: "📚 Грамматика", writ: "✍️ Письмо" },
   },
 
   en: {
@@ -961,7 +961,7 @@ const EXTRA = {
       ["🪜", "Writing scaffolding", "phrases → sentences (cloze, translation) → full letter. Each step builds on the previous."],
       ["⏱", "Timeboxing", "40–50 minutes daily beats 5 hours once a week. Days 11–12: timed letters, exam-style."],
     ],
-    planLabels: { title: "📅 14-day exam plan", intro: "Two parts a day: grammar and writing. Tick what's done — the plan remembers. Missed a day? Just carry on.", methodsTitle: "🔬 The methods behind this plan", day: "Day", today: "TODAY", done: "✓ done", min: "min", gram: "📚 Grammar", writ: "✍️ Writing" },
+    planLabels: { title: "📅 Study plan", intro: "Two parts a day: grammar and writing. Tick what's done — the plan remembers. Missed a day? Just carry on.", methodsTitle: "🔬 The methods behind this plan", day: "Day", today: "TODAY", done: "✓ done", min: "min", gram: "📚 Grammar", writ: "✍️ Writing" },
   },
 
   tr: {
@@ -1017,7 +1017,7 @@ const EXTRA = {
       ["🪜", "Yazmada scaffolding", "kalıplar → cümleler (boşluk doldurma, çeviri) → tam mektup. Her adım öncekine dayanır."],
       ["⏱", "Zaman kutulama", "günde 40–50 dakika, haftada bir 5 saati yener. 11–12. günler: sınav tarzı süreli mektuplar."],
     ],
-    planLabels: { title: "📅 Sınava 14 günlük plan", intro: "Her gün iki bölüm: dil bilgisi ve yazma. Yapılanı işaretle — plan hatırlar. Gün kaçtıysa devam et.", methodsTitle: "🔬 Planın dayandığı yöntemler", day: "Gün", today: "BUGÜN", done: "✓ tamam", min: "dk", gram: "📚 Dil bilgisi", writ: "✍️ Yazma" },
+    planLabels: { title: "📅 Çalışma planı", intro: "Her gün iki bölüm: dil bilgisi ve yazma. Yapılanı işaretle — plan hatırlar. Gün kaçtıysa devam et.", methodsTitle: "🔬 Planın dayandığı yöntemler", day: "Gün", today: "BUGÜN", done: "✓ tamam", min: "dk", gram: "📚 Dil bilgisi", writ: "✍️ Yazma" },
   },
 
   de: {
@@ -1073,7 +1073,7 @@ const EXTRA = {
       ["🪜", "Scaffolding beim Schreiben", "Redemittel → Sätze (Lückentext, Übersetzen) → ganzer Brief. Jeder Schritt baut auf dem vorigen auf."],
       ["⏱", "Timeboxing", "40–50 Minuten täglich schlagen 5 Stunden einmal pro Woche. Tage 11–12: Briefe auf Zeit, wie in der Prüfung."],
     ],
-    planLabels: { title: "📅 14-Tage-Plan bis zur Prüfung", intro: "Täglich zwei Teile: Grammatik und Schreiben. Hak Erledigtes ab — der Plan merkt es sich. Tag verpasst? Einfach weitermachen.", methodsTitle: "🔬 Die Methoden hinter dem Plan", day: "Tag", today: "HEUTE", done: "✓ erledigt", min: "Min.", gram: "📚 Grammatik", writ: "✍️ Schreiben" },
+    planLabels: { title: "📅 Lernplan", intro: "Täglich zwei Teile: Grammatik und Schreiben. Hak Erledigtes ab — der Plan merkt es sich. Tag verpasst? Einfach weitermachen.", methodsTitle: "🔬 Die Methoden hinter dem Plan", day: "Tag", today: "HEUTE", done: "✓ erledigt", min: "Min.", gram: "📚 Grammatik", writ: "✍️ Schreiben" },
   },
 
   hi: {
@@ -1129,7 +1129,7 @@ const EXTRA = {
       ["🪜", "लेखन में scaffolding", "वाक्यांश → वाक्य (रिक्त स्थान, अनुवाद) → पूरा पत्र। हर कदम पिछले पर टिका है।"],
       ["⏱", "टाइमबॉक्सिंग", "रोज़ 40–50 मिनट, हफ़्ते में एक बार 5 घंटे से बेहतर। दिन 11–12: परीक्षा जैसी समयबद्ध चिट्ठियाँ।"],
     ],
-    planLabels: { title: "📅 परीक्षा तक 14 दिन की योजना", intro: "हर दिन दो भाग: व्याकरण और लेखन। किया हुआ टिक करो — योजना याद रखेगी। दिन छूट जाए तो बस आगे बढ़ो।", methodsTitle: "🔬 योजना के पीछे के तरीक़े", day: "दिन", today: "आज", done: "✓ हो गया", min: "मिनट", gram: "📚 व्याकरण", writ: "✍️ लेखन" },
+    planLabels: { title: "📅 अध्ययन योजना", intro: "हर दिन दो भाग: व्याकरण और लेखन। किया हुआ टिक करो — योजना याद रखेगी। दिन छूट जाए तो बस आगे बढ़ो।", methodsTitle: "🔬 योजना के पीछे के तरीक़े", day: "दिन", today: "आज", done: "✓ हो गया", min: "मिनट", gram: "📚 व्याकरण", writ: "✍️ लेखन" },
   },
 };
 
@@ -1185,8 +1185,8 @@ Object.assign(STR, {
     focusKicker: "✍️ Główny cel",
     writingTitle: "Schreiben — pisanie",
     writingSub: "Zwroty · Lückentext · tłumaczenie · listy",
-    planKicker: "📅 Przed egzaminem",
-    planTitle: "Plan 14 dni",
+    planKicker: "📅 Krok po kroku",
+    planTitle: "Plan nauki",
     planSub: "Co uczyć się codziennie — gramatyka + pisanie",
     saveBtn: "⬇ Zapisz postęp",
     loadBtn: "⬆ Wczytaj postęp",
@@ -1299,8 +1299,8 @@ Object.assign(STR, {
     focusKicker: "✍️ Enfoque principal",
     writingTitle: "Schreiben — escritura",
     writingSub: "Frases · huecos · traducción · cartas",
-    planKicker: "📅 Antes del examen",
-    planTitle: "Plan de 14 días",
+    planKicker: "📅 Paso a paso",
+    planTitle: "Plan de estudio",
     planSub: "Qué estudiar cada día — gramática + escritura",
     saveBtn: "⬇ Guardar progreso",
     loadBtn: "⬆ Cargar progreso",
@@ -1415,8 +1415,8 @@ Object.assign(STR, {
     focusKicker: "✍️ Objectif principal",
     writingTitle: "Schreiben — écriture",
     writingSub: "Expressions · textes à trous · traduction · lettres",
-    planKicker: "📅 Avant l'examen",
-    planTitle: "Plan de 14 jours",
+    planKicker: "📅 Pas à pas",
+    planTitle: "Plan d'étude",
     planSub: "Quoi étudier chaque jour — grammaire + écriture",
     saveBtn: "⬇ Sauvegarder la progression",
     loadBtn: "⬆ Charger la progression",
@@ -1529,8 +1529,8 @@ Object.assign(STR, {
     focusKicker: "✍️ Obiectiv principal",
     writingTitle: "Schreiben — scriere",
     writingSub: "Expresii · texte lacunare · traducere · scrisori",
-    planKicker: "📅 Înainte de examen",
-    planTitle: "Plan de 14 zile",
+    planKicker: "📅 Pas cu pas",
+    planTitle: "Plan de studiu",
     planSub: "Ce să înveți zilnic — gramatică + scriere",
     saveBtn: "⬇ Salvează progresul",
     loadBtn: "⬆ Încarcă progresul",
@@ -1643,8 +1643,8 @@ Object.assign(STR, {
     focusKicker: "✍️ Obiettivo principale",
     writingTitle: "Schreiben — scrittura",
     writingSub: "Frasi · testi a buchi · traduzione · lettere",
-    planKicker: "📅 Prima dell'esame",
-    planTitle: "Piano di 14 giorni",
+    planKicker: "📅 Passo dopo passo",
+    planTitle: "Piano di studio",
     planSub: "Cosa studiare ogni giorno — grammatica + scrittura",
     saveBtn: "⬇ Salva i progressi",
     loadBtn: "⬆ Carica i progressi",
@@ -1796,7 +1796,7 @@ Object.assign(EXTRA, {
       ["🪜", "Scaffolding pisania", "zwroty → zdania (Lückentext, tłumaczenie) → pełny list. Każdy krok opiera się na poprzednim."],
       ["⏱", "Timeboxing", "40–50 minut dziennie wygrywa z 5 godzinami raz w tygodniu. Dni 11–12: listy na czas, jak na egzaminie."],
     ],
-    planLabels: { title: "📅 Plan 14 dni do egzaminu", intro: "Codziennie dwie części: gramatyka i pisanie. Odhaczaj zrobione — plan zapamięta. Opuściłeś dzień? Po prostu kontynuuj.", methodsTitle: "🔬 Metody, na których oparty jest plan", day: "Dzień", today: "DZIŚ", done: "✓ zrobione", min: "min", gram: "📚 Gramatyka", writ: "✍️ Pisanie" },
+    planLabels: { title: "📅 Plan nauki", intro: "Codziennie dwie części: gramatyka i pisanie. Odhaczaj zrobione — plan zapamięta. Opuściłeś dzień? Po prostu kontynuuj.", methodsTitle: "🔬 Metody, na których oparty jest plan", day: "Dzień", today: "DZIŚ", done: "✓ zrobione", min: "min", gram: "📚 Gramatyka", writ: "✍️ Pisanie" },
   },
 
   es: {
@@ -1852,7 +1852,7 @@ Object.assign(EXTRA, {
       ["🪜", "Andamiaje de escritura", "frases → oraciones (huecos, traducción) → carta completa. Cada paso se apoya en el anterior."],
       ["⏱", "Timeboxing", "40–50 minutos diarios ganan a 5 horas una vez por semana. Días 11–12: cartas a tiempo, como en el examen."],
     ],
-    planLabels: { title: "📅 Plan de 14 días para el examen", intro: "Dos partes al día: gramática y escritura. Marca lo hecho — el plan lo recuerda. ¿Perdiste un día? Simplemente sigue.", methodsTitle: "🔬 Los métodos detrás del plan", day: "Día", today: "HOY", done: "✓ hecho", min: "min", gram: "📚 Gramática", writ: "✍️ Escritura" },
+    planLabels: { title: "📅 Plan de estudio", intro: "Dos partes al día: gramática y escritura. Marca lo hecho — el plan lo recuerda. ¿Perdiste un día? Simplemente sigue.", methodsTitle: "🔬 Los métodos detrás del plan", day: "Día", today: "HOY", done: "✓ hecho", min: "min", gram: "📚 Gramática", writ: "✍️ Escritura" },
   },
 });
 
@@ -1910,7 +1910,7 @@ Object.assign(EXTRA, {
       ["🪜", "Échafaudage de l'écriture", "expressions → phrases (trous, traduction) → lettre complète. Chaque étape s'appuie sur la précédente."],
       ["⏱", "Timeboxing", "40–50 minutes par jour battent 5 heures une fois par semaine. Jours 11–12 : lettres chronométrées, comme à l'examen."],
     ],
-    planLabels: { title: "📅 Plan de 14 jours avant l'examen", intro: "Deux parties par jour : grammaire et écriture. Coche ce qui est fait — le plan s'en souvient. Un jour manqué ? Continue simplement.", methodsTitle: "🔬 Les méthodes derrière ce plan", day: "Jour", today: "AUJOURD'HUI", done: "✓ fait", min: "min", gram: "📚 Grammaire", writ: "✍️ Écriture" },
+    planLabels: { title: "📅 Plan d'étude", intro: "Deux parties par jour : grammaire et écriture. Coche ce qui est fait — le plan s'en souvient. Un jour manqué ? Continue simplement.", methodsTitle: "🔬 Les méthodes derrière ce plan", day: "Jour", today: "AUJOURD'HUI", done: "✓ fait", min: "min", gram: "📚 Grammaire", writ: "✍️ Écriture" },
   },
 
   ro: {
@@ -1966,7 +1966,7 @@ Object.assign(EXTRA, {
       ["🪜", "Schelărie pentru scriere", "expresii → propoziții (text lacunar, traducere) → scrisoare completă. Fiecare pas se sprijină pe cel anterior."],
       ["⏱", "Timeboxing", "40–50 de minute zilnic bat 5 ore o dată pe săptămână. Zilele 11–12: scrisori contra cronometru, ca la examen."],
     ],
-    planLabels: { title: "📅 Plan de 14 zile până la examen", intro: "Două părți pe zi: gramatică și scriere. Bifează ce ai făcut — planul ține minte. Ai sărit o zi? Continuă pur și simplu.", methodsTitle: "🔬 Metodele din spatele planului", day: "Ziua", today: "AZI", done: "✓ făcut", min: "min", gram: "📚 Gramatică", writ: "✍️ Scriere" },
+    planLabels: { title: "📅 Plan de studiu", intro: "Două părți pe zi: gramatică și scriere. Bifează ce ai făcut — planul ține minte. Ai sărit o zi? Continuă pur și simplu.", methodsTitle: "🔬 Metodele din spatele planului", day: "Ziua", today: "AZI", done: "✓ făcut", min: "min", gram: "📚 Gramatică", writ: "✍️ Scriere" },
   },
 
   it: {
@@ -2022,7 +2022,7 @@ Object.assign(EXTRA, {
       ["🪜", "Scaffolding della scrittura", "frasi → periodi (testo a buchi, traduzione) → lettera completa. Ogni passo poggia sul precedente."],
       ["⏱", "Timeboxing", "40–50 minuti al giorno battono 5 ore una volta a settimana. Giorni 11–12: lettere a tempo, come all'esame."],
     ],
-    planLabels: { title: "📅 Piano di 14 giorni per l'esame", intro: "Due parti al giorno: grammatica e scrittura. Spunta ciò che è fatto — il piano lo ricorda. Hai saltato un giorno? Continua e basta.", methodsTitle: "🔬 I metodi dietro il piano", day: "Giorno", today: "OGGI", done: "✓ fatto", min: "min", gram: "📚 Grammatica", writ: "✍️ Scrittura" },
+    planLabels: { title: "📅 Piano di studio", intro: "Due parti al giorno: grammatica e scrittura. Spunta ciò che è fatto — il piano lo ricorda. Hai saltato un giorno? Continua e basta.", methodsTitle: "🔬 I metodi dietro il piano", day: "Giorno", today: "OGGI", done: "✓ fatto", min: "min", gram: "📚 Grammatica", writ: "✍️ Scrittura" },
   },
 });
 
@@ -2071,7 +2071,7 @@ Object.assign(STR, {
     continueKicker: "Продължи обучението", nextBadge: "СЛЕДВАЩ",
     sessionBtn: "Днешна сесия", diagBtn: "🎯 Тест за ниво",
     focusKicker: "✍️ Основен фокус", writingTitle: "Schreiben — писане", writingSub: "Фрази · Lückentext · превод · писма",
-    planKicker: "📅 Преди изпита", planTitle: "План за 14 дни", planSub: "Какво да учиш всеки ден — граматика + писане",
+    planKicker: "📅 Стъпка по стъпка", planTitle: "Учебен план", planSub: "Какво да учиш всеки ден — граматика + писане",
     saveBtn: "⬇ Запази напредъка", loadBtn: "⬆ Зареди напредъка",
     chooseLevel: "Избери ниво", modAbbr: "мод.", back: "← Назад",
     diagTitle: "🎯 Тест за ниво",
@@ -2127,7 +2127,7 @@ Object.assign(STR, {
     continueKicker: "Nastavi učiti", nextBadge: "SLJEDEĆI",
     sessionBtn: "Današnja sesija", diagBtn: "🎯 Test razine",
     focusKicker: "✍️ Glavni fokus", writingTitle: "Schreiben — pisanje", writingSub: "Fraze · Lückentext · prijevod · pisma",
-    planKicker: "📅 Prije ispita", planTitle: "Plan od 14 dana", planSub: "Što učiti svaki dan — gramatika + pisanje",
+    planKicker: "📅 Korak po korak", planTitle: "Plan učenja", planSub: "Što učiti svaki dan — gramatika + pisanje",
     saveBtn: "⬇ Spremi napredak", loadBtn: "⬆ Učitaj napredak",
     chooseLevel: "Odaberi razinu", modAbbr: "mod.", back: "← Natrag",
     diagTitle: "🎯 Test razine",
@@ -2183,7 +2183,7 @@ Object.assign(STR, {
     continueKicker: "Tanulás folytatása", nextBadge: "KÖVETKEZŐ",
     sessionBtn: "Mai gyakorlás", diagBtn: "🎯 Szintfelmérő",
     focusKicker: "✍️ Fő fókusz", writingTitle: "Schreiben — írás", writingSub: "Fordulatok · Lückentext · fordítás · levelek",
-    planKicker: "📅 A vizsga előtt", planTitle: "14 napos terv", planSub: "Mit tanulj naponta — nyelvtan + írás",
+    planKicker: "📅 Lépésről lépésre", planTitle: "Tanulási terv", planSub: "Mit tanulj naponta — nyelvtan + írás",
     saveBtn: "⬇ Haladás mentése", loadBtn: "⬆ Haladás betöltése",
     chooseLevel: "Válassz szintet", modAbbr: "mod.", back: "← Vissza",
     diagTitle: "🎯 Szintfelmérő",
@@ -2239,7 +2239,7 @@ Object.assign(STR, {
     continueKicker: "Continuar a aprender", nextBadge: "SEGUINTE",
     sessionBtn: "Sessão de hoje", diagBtn: "🎯 Teste de nível",
     focusKicker: "✍️ Foco principal", writingTitle: "Schreiben — escrita", writingSub: "Frases · lacunas · tradução · cartas",
-    planKicker: "📅 Antes do exame", planTitle: "Plano de 14 dias", planSub: "O que estudar cada dia — gramática + escrita",
+    planKicker: "📅 Passo a passo", planTitle: "Plano de estudo", planSub: "O que estudar cada dia — gramática + escrita",
     saveBtn: "⬇ Guardar progresso", loadBtn: "⬆ Carregar progresso",
     chooseLevel: "Escolhe um nível", modAbbr: "mód.", back: "← Voltar",
     diagTitle: "🎯 Teste de nível",
@@ -2298,7 +2298,7 @@ Object.assign(STR, {
     continueKicker: "واصل التعلّم", nextBadge: "التالي",
     sessionBtn: "جلسة اليوم", diagBtn: "🎯 اختبار تحديد المستوى",
     focusKicker: "✍️ التركيز الأساسي", writingTitle: "Schreiben — الكتابة", writingSub: "عبارات · نص بفراغات · ترجمة · رسائل",
-    planKicker: "📅 قبل الامتحان", planTitle: "خطة 14 يومًا", planSub: "ماذا تدرس يوميًا — قواعد + كتابة",
+    planKicker: "📅 خطوة بخطوة", planTitle: "خطة الدراسة", planSub: "ماذا تدرس يوميًا — قواعد + كتابة",
     saveBtn: "⬇ حفظ التقدم", loadBtn: "⬆ تحميل التقدم",
     chooseLevel: "اختر المستوى", modAbbr: "وحدة", back: "→ رجوع",
     diagTitle: "🎯 اختبار تحديد المستوى",
@@ -2354,7 +2354,7 @@ Object.assign(STR, {
     continueKicker: "ادامهٔ یادگیری", nextBadge: "بعدی",
     sessionBtn: "جلسهٔ امروز", diagBtn: "🎯 آزمون تعیین سطح",
     focusKicker: "✍️ تمرکز اصلی", writingTitle: "Schreiben — نوشتن", writingSub: "عبارت‌ها · متن جای‌خالی · ترجمه · نامه‌ها",
-    planKicker: "📅 پیش از امتحان", planTitle: "برنامهٔ ۱۴روزه", planSub: "هر روز چه بخوانی — دستور + نوشتن",
+    planKicker: "📅 گام‌به‌گام", planTitle: "برنامهٔ مطالعه", planSub: "هر روز چه بخوانی — دستور + نوشتن",
     saveBtn: "⬇ ذخیرهٔ پیشرفت", loadBtn: "⬆ بارگذاری پیشرفت",
     chooseLevel: "سطح را انتخاب کن", modAbbr: "ماژول", back: "→ بازگشت",
     diagTitle: "🎯 آزمون تعیین سطح",
@@ -2410,7 +2410,7 @@ Object.assign(STR, {
     continueKicker: "Tiếp tục học", nextBadge: "TIẾP THEO",
     sessionBtn: "Phiên hôm nay", diagBtn: "🎯 Kiểm tra trình độ",
     focusKicker: "✍️ Trọng tâm chính", writingTitle: "Schreiben — viết", writingSub: "Mẫu câu · điền khuyết · dịch · thư",
-    planKicker: "📅 Trước kỳ thi", planTitle: "Kế hoạch 14 ngày", planSub: "Học gì mỗi ngày — ngữ pháp + viết",
+    planKicker: "📅 Từng bước", planTitle: "Kế hoạch học tập", planSub: "Học gì mỗi ngày — ngữ pháp + viết",
     saveBtn: "⬇ Lưu tiến độ", loadBtn: "⬆ Nạp tiến độ",
     chooseLevel: "Chọn trình độ", modAbbr: "mô-đun", back: "← Quay lại",
     diagTitle: "🎯 Kiểm tra trình độ",
@@ -2466,7 +2466,7 @@ Object.assign(STR, {
     continueKicker: "继续学习", nextBadge: "下一个",
     sessionBtn: "今日练习", diagBtn: "🎯 水平测试",
     focusKicker: "✍️ 重点", writingTitle: "Schreiben — 写作", writingSub: "短语 · 填空 · 翻译 · 书信",
-    planKicker: "📅 考前冲刺", planTitle: "14 天计划", planSub: "每天学什么 — 语法 + 写作",
+    planKicker: "📅 一步一步", planTitle: "学习计划", planSub: "每天学什么 — 语法 + 写作",
     saveBtn: "⬇ 保存进度", loadBtn: "⬆ 导入进度",
     chooseLevel: "选择级别", modAbbr: "模块", back: "← 返回",
     diagTitle: "🎯 水平测试",
@@ -2554,7 +2554,7 @@ Object.assign(EXTRA, {
       { g: "Лек ден: една SRS сесия.", w: "Едно писмо по избор за 20 мин. Наспи се преди изпита 🙂" },
     ],
     methods: [["🔁", "Интервални повторения (Leitner)", "дневната сесия връща картите точно когато си на път да ги забравиш."], ["🧠", "Активно припомняне", "първо отговаряш, после гледаш правилото — паметта става много по-здрава."], ["🔀", "Interleaving", "сесията смесва теми и нива — учиш се да различаваш правилата, а не да зубриш на блокове."], ["🪜", "Скеле за писане", "фрази → изречения (Lückentext, превод) → цяло писмо. Всяка стъпка стъпва на предишната."], ["⏱", "Таймбоксинг", "40–50 минути дневно бият 5 часа веднъж седмично. Дни 11–12: писма за време, като на изпит."]],
-    planLabels: { title: "📅 План за 14 дни до изпита", intro: "Всеки ден две части: граматика и писане. Отбелязвай свършеното — планът помни. Пропуснат ден? Просто продължи.", methodsTitle: "🔬 Методите зад плана", day: "Ден", today: "ДНЕС", done: "✓ готово", min: "мин", gram: "📚 Граматика", writ: "✍️ Писане" },
+    planLabels: { title: "📅 Учебен план", intro: "Всеки ден две части: граматика и писане. Отбелязвай свършеното — планът помни. Пропуснат ден? Просто продължи.", methodsTitle: "🔬 Методите зад плана", day: "Ден", today: "ДНЕС", done: "✓ готово", min: "мин", gram: "📚 Граматика", writ: "✍️ Писане" },
   },
   hr: {
     prompts: {
@@ -2593,7 +2593,7 @@ Object.assign(EXTRA, {
       { g: "Lagan dan: jedna SRS sesija.", w: "Jedno pismo po izboru u 20 min. Naspavaj se prije ispita 🙂" },
     ],
     methods: [["🔁", "Razmaknuta ponavljanja (Leitner)", "dnevna sesija vraća kartice točno kad si ih na rubu zaboravljanja."], ["🧠", "Aktivno prisjećanje", "prvo odgovoriš, zatim pogledaš pravilo — pamćenje je puno čvršće."], ["🔀", "Interleaving", "sesija miješa teme i razine — učiš razlikovati pravila umjesto bubanja u blokovima."], ["🪜", "Skele za pisanje", "fraze → rečenice (Lückentext, prijevod) → cijelo pismo. Svaki korak oslanja se na prethodni."], ["⏱", "Timeboxing", "40–50 minuta dnevno pobjeđuje 5 sati jednom tjedno. Dani 11–12: pisma na vrijeme, kao na ispitu."]],
-    planLabels: { title: "📅 Plan od 14 dana do ispita", intro: "Svaki dan dva dijela: gramatika i pisanje. Označavaj učinjeno — plan pamti. Preskočio si dan? Samo nastavi.", methodsTitle: "🔬 Metode iza plana", day: "Dan", today: "DANAS", done: "✓ gotovo", min: "min", gram: "📚 Gramatika", writ: "✍️ Pisanje" },
+    planLabels: { title: "📅 Plan učenja", intro: "Svaki dan dva dijela: gramatika i pisanje. Označavaj učinjeno — plan pamti. Preskočio si dan? Samo nastavi.", methodsTitle: "🔬 Metode iza plana", day: "Dan", today: "DANAS", done: "✓ gotovo", min: "min", gram: "📚 Gramatika", writ: "✍️ Pisanje" },
   },
   hu: {
     prompts: {
@@ -2632,7 +2632,7 @@ Object.assign(EXTRA, {
       { g: "Könnyű nap: egy SRS gyakorlás.", w: "Egy tetszőleges levél 20 perc alatt. Aludd ki magad a vizsga előtt 🙂" },
     ],
     methods: [["🔁", "Időzített ismétlés (Leitner)", "a napi gyakorlás pont akkor hozza vissza a kártyákat, amikor kezdenéd elfelejteni őket."], ["🧠", "Aktív felidézés", "előbb válaszolsz, aztán nézed a szabályt — az emlék sokkal erősebb lesz."], ["🔀", "Interleaving", "a gyakorlásban keverednek a témák és szintek — a szabályok megkülönböztetését tanulod, nem a blokkos magolást."], ["🪜", "Írás-állványzat", "fordulatok → mondatok (Lückentext, fordítás) → teljes levél. Minden lépés az előzőre épül."], ["⏱", "Timeboxing", "napi 40–50 perc legyőzi a heti egyszeri 5 órát. 11–12. nap: levelek időre, vizsgamódban."]],
-    planLabels: { title: "📅 14 napos terv a vizsgáig", intro: "Naponta két rész: nyelvtan és írás. Pipáld ki a készet — a terv megjegyzi. Kimaradt egy nap? Csak folytasd.", methodsTitle: "🔬 A terv mögötti módszerek", day: "Nap", today: "MA", done: "✓ kész", min: "perc", gram: "📚 Nyelvtan", writ: "✍️ Írás" },
+    planLabels: { title: "📅 Tanulási terv", intro: "Naponta két rész: nyelvtan és írás. Pipáld ki a készet — a terv megjegyzi. Kimaradt egy nap? Csak folytasd.", methodsTitle: "🔬 A terv mögötti módszerek", day: "Nap", today: "MA", done: "✓ kész", min: "perc", gram: "📚 Nyelvtan", writ: "✍️ Írás" },
   },
   pt: {
     prompts: {
@@ -2671,7 +2671,7 @@ Object.assign(EXTRA, {
       { g: "Dia leve: uma sessão SRS.", w: "Uma carta à escolha em 20 min. Dorme bem antes do exame 🙂" },
     ],
     methods: [["🔁", "Repetição espaçada (Leitner)", "a sessão diária traz os cartões de volta mesmo quando estás quase a esquecê-los."], ["🧠", "Evocação ativa", "primeiro respondes, depois vês a regra — a memória fica muito mais sólida."], ["🔀", "Interleaving", "a sessão mistura temas e níveis — aprendes a distinguir regras em vez de decorar por blocos."], ["🪜", "Andaime da escrita", "frases → orações (lacunas, tradução) → carta completa. Cada passo apoia-se no anterior."], ["⏱", "Timeboxing", "40–50 minutos por dia vencem 5 horas uma vez por semana. Dias 11–12: cartas cronometradas, como no exame."]],
-    planLabels: { title: "📅 Plano de 14 dias até ao exame", intro: "Duas partes por dia: gramática e escrita. Marca o que está feito — o plano lembra-se. Falhaste um dia? Continua simplesmente.", methodsTitle: "🔬 Os métodos por trás do plano", day: "Dia", today: "HOJE", done: "✓ feito", min: "min", gram: "📚 Gramática", writ: "✍️ Escrita" },
+    planLabels: { title: "📅 Plano de estudo", intro: "Duas partes por dia: gramática e escrita. Marca o que está feito — o plano lembra-se. Falhaste um dia? Continua simplesmente.", methodsTitle: "🔬 Os métodos por trás do plano", day: "Dia", today: "HOJE", done: "✓ feito", min: "min", gram: "📚 Gramática", writ: "✍️ Escrita" },
   },
 });
 
@@ -2713,7 +2713,7 @@ Object.assign(EXTRA, {
       { g: "يوم خفيف: جلسة SRS واحدة.", w: "رسالة واحدة من اختيارك في 20 دقيقة. نَم جيدًا قبل الامتحان 🙂" },
     ],
     methods: [["🔁", "التكرار المتباعد (Leitner)", "الجلسة اليومية تعيد البطاقات في اللحظة التي توشك فيها على نسيانها."], ["🧠", "الاسترجاع النشط", "أجب أولًا ثم انظر إلى القاعدة — هكذا تترسخ الذاكرة أقوى بكثير."], ["🔀", "التداخل (Interleaving)", "الجلسة تمزج المواضيع والمستويات — تتعلم التمييز بين القواعد بدل الحفظ الكتلي."], ["🪜", "سقالات الكتابة", "عبارات ← جمل (فراغات، ترجمة) ← رسالة كاملة. كل خطوة تبني على السابقة."], ["⏱", "تقسيم الوقت", "40–50 دقيقة يوميًا تتفوق على 5 ساعات مرة أسبوعيًا. اليومان 11–12: رسائل بوقت محدد كما في الامتحان."]],
-    planLabels: { title: "📅 خطة 14 يومًا حتى الامتحان", intro: "كل يوم جزءان: قواعد وكتابة. علّم ما أنجزته — الخطة تتذكر. فاتك يوم؟ فقط أكمل.", methodsTitle: "🔬 المنهجيات وراء الخطة", day: "اليوم", today: "اليوم", done: "✓ تم", min: "د", gram: "📚 القواعد", writ: "✍️ الكتابة" },
+    planLabels: { title: "📅 خطة الدراسة", intro: "كل يوم جزءان: قواعد وكتابة. علّم ما أنجزته — الخطة تتذكر. فاتك يوم؟ فقط أكمل.", methodsTitle: "🔬 المنهجيات وراء الخطة", day: "اليوم", today: "اليوم", done: "✓ تم", min: "د", gram: "📚 القواعد", writ: "✍️ الكتابة" },
   },
   fa: {
     prompts: {
@@ -2752,7 +2752,7 @@ Object.assign(EXTRA, {
       { g: "روز سبک: یک جلسهٔ SRS.", w: "یک نامه به انتخاب خودت در ۲۰ دقیقه. پیش از امتحان خوب بخواب 🙂" },
     ],
     methods: [["🔁", "تکرار بافاصله (Leitner)", "جلسهٔ روزانه کارت‌ها را درست وقتی برمی‌گرداند که در آستانهٔ فراموشی‌اند."], ["🧠", "یادآوری فعال", "اول پاسخ بده، بعد قاعده را ببین — حافظه خیلی محکم‌تر شکل می‌گیرد."], ["🔀", "درهم‌آمیزی", "جلسه موضوع‌ها و سطح‌ها را می‌آمیزد — تشخیص قاعده‌ها را یاد می‌گیری، نه حفظ بلوکی."], ["🪜", "داربست نوشتن", "عبارت‌ها ← جمله‌ها (جای‌خالی، ترجمه) ← نامهٔ کامل. هر گام بر گام قبلی سوار است."], ["⏱", "زمان‌بندی", "روزی ۴۰–۵۰ دقیقه از هفته‌ای یک‌بار ۵ ساعت بهتر است. روزهای ۱۱–۱۲: نامه‌های زمان‌دار مثل امتحان."]],
-    planLabels: { title: "📅 برنامهٔ ۱۴روزه تا امتحان", intro: "هر روز دو بخش: دستور و نوشتن. انجام‌شده‌ها را علامت بزن — برنامه به خاطر می‌سپارد. روزی جا ماند؟ فقط ادامه بده.", methodsTitle: "🔬 روش‌های پشت برنامه", day: "روز", today: "امروز", done: "✓ انجام شد", min: "دقیقه", gram: "📚 دستور زبان", writ: "✍️ نوشتن" },
+    planLabels: { title: "📅 برنامهٔ مطالعه", intro: "هر روز دو بخش: دستور و نوشتن. انجام‌شده‌ها را علامت بزن — برنامه به خاطر می‌سپارد. روزی جا ماند؟ فقط ادامه بده.", methodsTitle: "🔬 روش‌های پشت برنامه", day: "روز", today: "امروز", done: "✓ انجام شد", min: "دقیقه", gram: "📚 دستور زبان", writ: "✍️ نوشتن" },
   },
   vi: {
     prompts: {
@@ -2791,7 +2791,7 @@ Object.assign(EXTRA, {
       { g: "Ngày nhẹ nhàng: một phiên SRS.", w: "Một lá thư tùy chọn trong 20 phút. Ngủ ngon trước kỳ thi 🙂" },
     ],
     methods: [["🔁", "Lặp lại ngắt quãng (Leitner)", "phiên hằng ngày đưa thẻ trở lại đúng lúc bạn sắp quên."], ["🧠", "Gợi nhớ chủ động", "trả lời trước, xem quy tắc sau — trí nhớ hình thành chắc hơn nhiều."], ["🔀", "Interleaving", "phiên học trộn chủ đề và trình độ — bạn học cách phân biệt quy tắc thay vì học vẹt từng khối."], ["🪜", "Giàn giáo luyện viết", "mẫu câu → câu (điền khuyết, dịch) → thư hoàn chỉnh. Mỗi bước dựa trên bước trước."], ["⏱", "Đóng khung thời gian", "40–50 phút mỗi ngày thắng 5 tiếng mỗi tuần một lần. Ngày 11–12: viết thư bấm giờ như thi thật."]],
-    planLabels: { title: "📅 Kế hoạch 14 ngày trước kỳ thi", intro: "Mỗi ngày hai phần: ngữ pháp và viết. Tích vào việc đã làm — kế hoạch sẽ ghi nhớ. Lỡ một ngày? Cứ tiếp tục.", methodsTitle: "🔬 Các phương pháp đằng sau kế hoạch", day: "Ngày", today: "HÔM NAY", done: "✓ xong", min: "phút", gram: "📚 Ngữ pháp", writ: "✍️ Viết" },
+    planLabels: { title: "📅 Kế hoạch học tập", intro: "Mỗi ngày hai phần: ngữ pháp và viết. Tích vào việc đã làm — kế hoạch sẽ ghi nhớ. Lỡ một ngày? Cứ tiếp tục.", methodsTitle: "🔬 Các phương pháp đằng sau kế hoạch", day: "Ngày", today: "HÔM NAY", done: "✓ xong", min: "phút", gram: "📚 Ngữ pháp", writ: "✍️ Viết" },
   },
   zh: {
     prompts: {
@@ -2830,6 +2830,27 @@ Object.assign(EXTRA, {
       { g: "轻松的一天：一次 SRS 练习。", w: "任选一封信，20 分钟写完。考前睡个好觉 🙂" },
     ],
     methods: [["🔁", "间隔重复（Leitner）", "每日练习在你快要遗忘时把卡片带回来。"], ["🧠", "主动回忆", "先作答，后看规则——记忆会牢固得多。"], ["🔀", "交错学习", "练习混合不同主题和级别——你学会区分规则，而不是成块死记。"], ["🪜", "写作脚手架", "短语 → 句子（填空、翻译）→ 完整书信。每一步都建立在上一步之上。"], ["⏱", "时间盒", "每天 40–50 分钟胜过每周一次 5 小时。第 11–12 天：像考试一样限时写信。"]],
-    planLabels: { title: "📅 考前 14 天计划", intro: "每天两部分：语法和写作。做完就打勾——计划会记住。漏了一天？继续就好。", methodsTitle: "🔬 计划背后的方法", day: "第", today: "今天", done: "✓ 完成", min: "分钟", gram: "📚 语法", writ: "✍️ 写作" },
+    planLabels: { title: "📅 学习计划", intro: "每天两部分：语法和写作。做完就打勾——计划会记住。漏了一天？继续就好。", methodsTitle: "🔬 计划背后的方法", day: "第", today: "今天", done: "✓ 完成", min: "分钟", gram: "📚 语法", writ: "✍️ 写作" },
   },
 });
+
+// section navigation labels
+Object.assign(STR.uk, { navHome: "Головна", navWriting: "Письмо", navPlan: "План" });
+Object.assign(STR.ru, { navHome: "Главная", navWriting: "Письмо", navPlan: "План" });
+Object.assign(STR.en, { navHome: "Home", navWriting: "Writing", navPlan: "Plan" });
+Object.assign(STR.pl, { navHome: "Start", navWriting: "Pisanie", navPlan: "Plan" });
+Object.assign(STR.es, { navHome: "Inicio", navWriting: "Escritura", navPlan: "Plan" });
+Object.assign(STR.fr, { navHome: "Accueil", navWriting: "Écriture", navPlan: "Plan" });
+Object.assign(STR.it, { navHome: "Home", navWriting: "Scrittura", navPlan: "Piano" });
+Object.assign(STR.ro, { navHome: "Acasă", navWriting: "Scriere", navPlan: "Plan" });
+Object.assign(STR.tr, { navHome: "Ana sayfa", navWriting: "Yazma", navPlan: "Plan" });
+Object.assign(STR.de, { navHome: "Start", navWriting: "Schreiben", navPlan: "Plan" });
+Object.assign(STR.bg, { navHome: "Начало", navWriting: "Писане", navPlan: "План" });
+Object.assign(STR.hr, { navHome: "Početna", navWriting: "Pisanje", navPlan: "Plan" });
+Object.assign(STR.hu, { navHome: "Főoldal", navWriting: "Írás", navPlan: "Terv" });
+Object.assign(STR.pt, { navHome: "Início", navWriting: "Escrita", navPlan: "Plano" });
+Object.assign(STR.ar, { navHome: "الرئيسية", navWriting: "الكتابة", navPlan: "الخطة" });
+Object.assign(STR.fa, { navHome: "خانه", navWriting: "نوشتن", navPlan: "برنامه" });
+Object.assign(STR.vi, { navHome: "Trang chủ", navWriting: "Viết", navPlan: "Kế hoạch" });
+Object.assign(STR.zh, { navHome: "主页", navWriting: "写作", navPlan: "计划" });
+Object.assign(STR.hi, { navHome: "मुख्य", navWriting: "लेखन", navPlan: "योजना" });
