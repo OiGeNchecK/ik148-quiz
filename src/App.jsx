@@ -164,9 +164,11 @@ export default function App() {
     return map;
   }, [moduleStats]);
 
-  // next recommended module: first (A0→B1 order) not fully mastered
+  // next recommended module: first (A0→B1 order) not yet passed.
+  // A module counts as passed at >= 70% learned (same bar as the streak);
+  // the remaining wrong cards still come back in the daily review session.
   const nextModule = useMemo(
-    () => MODULES.find((m) => moduleStats[m.id].mastered < moduleStats[m.id].total) || null,
+    () => MODULES.find((m) => moduleStats[m.id].mastered / moduleStats[m.id].total < 0.7) || null,
     [moduleStats]
   );
 
