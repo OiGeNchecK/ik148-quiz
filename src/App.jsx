@@ -142,7 +142,10 @@ export default function App() {
     const map = {};
     for (const m of MODULES) {
       const qs = m.questions.map((_, i) => `${m.id}#${i}`);
-      const mastered = qs.filter((k) => (srs[k]?.box || 0) >= 4).length;
+      // a card counts as learned once it's been answered correctly (box >= 2);
+      // the Leitner scheduler still brings it back later for spaced reviews.
+      // (box >= 4 required days of repetition, so fresh progress showed 0%)
+      const mastered = qs.filter((k) => (srs[k]?.box || 0) >= 2).length;
       const started = qs.filter((k) => srs[k]).length;
       map[m.id] = { mastered, total: qs.length, started, pct: Math.round((mastered / qs.length) * 100) };
     }
